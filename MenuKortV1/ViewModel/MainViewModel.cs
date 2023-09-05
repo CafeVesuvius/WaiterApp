@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace MenuKortV1.ViewModel
 {
-    public partial class MainPageViewModel : ObservableObject
+    public partial class MainViewModel : ObservableObject
     {
-        public MainPageViewModel()
+        public MainViewModel()
         {
             Menus = new ObservableCollection<Menu>
             {
