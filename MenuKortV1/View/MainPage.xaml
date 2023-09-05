@@ -25,7 +25,7 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Button 
+                            <Button 
                             Text="{Binding Name}"
                             Margin="5"
                             FontSize="20"
