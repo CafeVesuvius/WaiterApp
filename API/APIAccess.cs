@@ -14,8 +14,6 @@ namespace API
         public List<Menu> Menus { get; private set; }
         static string BaseUrl = "";
 
-        public string placeholderData = "{\r\n  \"Menu\": {\r\n    \"Burger\":{\r\n      \"Price\":130,\r\n      \"Description\":\"TEST TEST TEST\"\r\n    },\r\n    \"Pizza\":{\r\n      \"Price\": 85,\r\n      \"Description\":\"Good Peperoni Pizza\"\r\n    }\r\n  }\r\n}";
-
 
         public APIAccess()
         {
@@ -30,11 +28,11 @@ namespace API
             };
         }
 
-        public List<Menu> GetMenusAsync()
+        public async Task<List<Menu>> GetMenusAsync()
         {
             Menus = new List<Menu>();
 
-            var json = placeholderData;
+            var json = await _client.GetStringAsync("");
             var jsonConverted = JsonConvert.DeserializeObject<List<Menu>>(json);
             return jsonConverted.ToList();
         }
