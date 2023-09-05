@@ -6,13 +6,12 @@ using System.Threading.Tasks;
 
 namespace API.Models
 {
-    public class Menu
+    public class MenuItem
     {
         public int Id { get; set; }
         public required string Name { get; set; }
-        public required string Season { get; set; }
+        public required string Description { get; set; }   
+        public required string UnitPrice { get; set; }
         public bool Active { get; set; }
-        public DateTime Changed_TS { get; set; }
-        public List<MenuItem>? MenuItems { get; set; }
     }
 }
