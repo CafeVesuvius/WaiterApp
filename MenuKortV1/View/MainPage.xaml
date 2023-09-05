@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:MenuKortV1.Model"
+             xmlns:vm="clr-namespace:MenuKortV1.ViewModel"
+             x:DataType="vm:MainPageViewModel"
+             x:Class="MenuKortV1.MainPage">
+
+    <ScrollView>
+        <VerticalStackLayout
+            VerticalOptions="Start">
+
+        <Label
+            Padding="10"
+            FontSize="20"
+            Text="Vælg et menu fra listen:" />
+
+        <CollectionView ItemsSource="{Binding Menus}">
+            <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Menu">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Button 
+                            Text="{Binding Name}"
+                            Margin="5"
+                            FontSize="20"
+                            CornerRadius="0"/>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
