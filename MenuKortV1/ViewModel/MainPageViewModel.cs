@@ -1,12 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MenuKortV1.Model;
-using System;
-using System.Collections.Generic;
+using MenuKortV1.View;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MenuKortV1.ViewModel
 {
@@ -40,10 +36,13 @@ namespace MenuKortV1.ViewModel
         [ObservableProperty]
         ObservableCollection<Menu> menus;
 
+        [ObservableProperty]
+        string menuName;
+
         [RelayCommand]
-        async Task Tap(string s)
+        async Task Tap(Menu m)
         {
-            await Shell.Current.GoToAsync(nameof(MenuItemPage));
+            await Shell.Current.GoToAsync($"{nameof(MenuItemPage)}?Name={m.Name}");
         }
 
     }
