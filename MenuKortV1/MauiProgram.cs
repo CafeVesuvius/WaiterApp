@@ -22,9 +22,6 @@ namespace MenuKortV1
             builder.Services.AddTransient<MenuItemPage>();
             builder.Services.AddTransient<MenuItemViewModel>();
 
-            builder.Services.AddTransient<MenuItemPage>();
-            builder.Services.AddTransient<MenuItemViewModel>();
-
 #if DEBUG
             builder.Logging.AddDebug();
 #endif

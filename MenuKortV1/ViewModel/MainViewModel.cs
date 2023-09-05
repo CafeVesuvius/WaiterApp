@@ -20,15 +20,37 @@ namespace MenuKortV1.ViewModel
                     Active = true,
                     Changed_TS = DateTime.Now,
                     Items = new List<Model.MenuItem>()
+                    {
+                        new Model.MenuItem
+                        {
+                            Id = 1,
+                            Name = "Grimer Shake",
+                            Description = "urrrple",
+                            UnitPrice = "300",
+                            Active = true,
+                            MenuID = 1
+                        }
+                    }
                 },
-                new Menu 
-                { 
+                new Menu
+                {
                     Id = 2,
                     Name = "Test 2",
                     Season = "Test 2",
                     Active = true,
                     Changed_TS = DateTime.Now,
                     Items = new List<Model.MenuItem>()
+                    {
+                        new Model.MenuItem
+                        {
+                            Id = 1,
+                            Name = "asdasdas",
+                            Description = "a",
+                            UnitPrice = "300",
+                            Active = true,
+                            MenuID = 1
+                        }
+                    }
                 }
             };
         }
@@ -36,13 +58,14 @@ namespace MenuKortV1.ViewModel
         [ObservableProperty]
         ObservableCollection<Menu> menus;
 
-        [ObservableProperty]
-        string menuName;
-
         [RelayCommand]
         async Task Tap(Menu m)
         {
-            await Shell.Current.GoToAsync($"{nameof(MenuItemPage)}?Name={m.Name}");
+            await Shell.Current.GoToAsync($"{nameof(MenuItemPage)}?",
+                new Dictionary<string, object>
+                {
+                    { "Menu" , m },
+                });
         }
 
     }
