@@ -22,23 +22,17 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <Frame>
-                            <Frame.GestureRecognizers>
-                                <Tap.GestureRecogniser 
-                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MenuItemViewModel}}, Path=TapCommand}"
-                                    CommandParameter="{Binding .}">
-                                </Tap.GestureRecogniser>
-                            <Frame.GestureRecognizers/>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
                             <Button 
                                 Text="{Binding Name}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=TapCommand}"
+                                CommandParameter="{Binding .}"
                                 Margin="5"
                                 FontSize="20"
                                 CornerRadius="0"/>
-                        </Frame>
-                    </Grid>
+                        </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>

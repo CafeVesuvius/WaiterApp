@@ -1,12 +1,8 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MenuKortV1.Model;
-using System;
-using System.Collections.Generic;
+using MenuKortV1.View;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MenuKortV1.ViewModel
 {
@@ -24,15 +20,37 @@ namespace MenuKortV1.ViewModel
                     Active = true,
                     Changed_TS = DateTime.Now,
                     Items = new List<Model.MenuItem>()
+                    {
+                        new Model.MenuItem
+                        {
+                            Id = 1,
+                            Name = "Grimer Shake",
+                            Description = "urrrple",
+                            UnitPrice = "300",
+                            Active = true,
+                            MenuID = 1
+                        }
+                    }
                 },
-                new Menu 
-                { 
+                new Menu
+                {
                     Id = 2,
                     Name = "Test 2",
                     Season = "Test 2",
                     Active = true,
                     Changed_TS = DateTime.Now,
                     Items = new List<Model.MenuItem>()
+                    {
+                        new Model.MenuItem
+                        {
+                            Id = 1,
+                            Name = "asdasdas",
+                            Description = "a",
+                            UnitPrice = "300",
+                            Active = true,
+                            MenuID = 1
+                        }
+                    }
                 }
             };
         }
@@ -41,9 +59,13 @@ namespace MenuKortV1.ViewModel
         ObservableCollection<Menu> menus;
 
         [RelayCommand]
-        async Task Tap(string s)
+        async Task Tap(Menu m)
         {
-            await Shell.Current.GoToAsync(nameof(MenuItemPage));
+            await Shell.Current.GoToAsync($"{nameof(MenuItemPage)}?",
+                new Dictionary<string, object>
+                {
+                    { "Menu" , m },
+                });
         }
 
     }

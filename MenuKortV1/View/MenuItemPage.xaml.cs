@@ -1,9 +1,13 @@
-namespace MenuKortV1.View;
+using MenuKortV1.ViewModel;
 
-public partial class MenuItemPage : ContentPage
+namespace MenuKortV1.View
 {
-	public MenuItemPage()
+	public partial class MenuItemPage : ContentPage
 	{
-		InitializeComponent();
+		public MenuItemPage(MenuItemViewModel vm1)
+		{
+			InitializeComponent();
+			BindingContext = vm1;
+		}
 	}
 }

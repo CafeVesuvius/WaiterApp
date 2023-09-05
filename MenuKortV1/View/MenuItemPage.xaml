@@ -1,12 +1,37 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:models="clr-namespace:MenuKortV1.Model"
+             xmlns:vm="clr-namespace:MenuKortV1.ViewModel"
+             x:DataType="vm:MenuItemViewModel"
              x:Class="MenuKortV1.View.MenuItemPage"
-             Title="MenuItemPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="{Binding SelectedMenu.Name}">
+    
+    <ScrollView>
+        <VerticalStackLayout
+           VerticalOptions="Start">
+
+            <CollectionView ItemsSource="{Binding SelectedMenu.Items}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:Menu">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button
+                               Text="{Binding Name}"
+                               Margin="5"
+                               FontSize="20"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+    
 </ContentPage>
