@@ -4,7 +4,7 @@ namespace MenuKortV1
 {
     public partial class MainPage : ContentPage
     {
-        public MainPage(MainPageViewModel vm)
+        public MainPage(MainViewModel vm)
         {
             InitializeComponent();
             BindingContext = vm;

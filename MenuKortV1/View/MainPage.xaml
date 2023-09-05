@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:MenuKortV1.Model"
              xmlns:vm="clr-namespace:MenuKortV1.ViewModel"
-             x:DataType="vm:MainPageViewModel"
+             x:DataType="vm:MainViewModel"
              x:Class="MenuKortV1.MainPage">
 
     <ScrollView>

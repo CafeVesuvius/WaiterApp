@@ -17,7 +17,10 @@ namespace MenuKortV1
                 }).UseMauiCommunityToolkit();
 
             builder.Services.AddSingleton<MainPage>();
-            builder.Services.AddSingleton<MainPageViewModel>();
+            builder.Services.AddSingleton<MainViewModel>();
+
+            builder.Services.AddTransient<MenuItemPage>();
+            builder.Services.AddTransient<MenuItemViewModel>();
 
             builder.Services.AddTransient<MenuItemPage>();
             builder.Services.AddTransient<MenuItemViewModel>();
