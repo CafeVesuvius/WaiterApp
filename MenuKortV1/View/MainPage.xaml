@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:MenuKortV1.Model"
              xmlns:vm="clr-namespace:MenuKortV1.ViewModel"
-             x:DataType="vm:MainPageViewModel"
+             x:DataType="vm:MainViewModel"
              x:Class="MenuKortV1.MainPage">
 
     <ScrollView>
@@ -25,11 +25,19 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
+                        <Frame>
+                            <Frame.GestureRecognizers>
+                                <Tap.GestureRecogniser 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:MenuItemViewModel}}, Path=TapCommand}"
+                                    CommandParameter="{Binding .}">
+                                </Tap.GestureRecogniser>
+                            <Frame.GestureRecognizers/>
                             <Button 
-                            Text="{Binding Name}"
-                            Margin="5"
-                            FontSize="20"
-                            CornerRadius="0"/>
+                                Text="{Binding Name}"
+                                Margin="5"
+                                FontSize="20"
+                                CornerRadius="0"/>
+                        </Frame>
                     </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>

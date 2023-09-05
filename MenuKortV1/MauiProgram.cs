@@ -20,7 +20,10 @@ namespace MenuKortV1
 #endif
 
             builder.Services.AddSingleton<MainPage>();
-            builder.Services.AddSingleton<MainPageViewModel>();
+            builder.Services.AddSingleton<MainViewModel>();
+
+            builder.Services.AddTransient<MenuItemPage>();
+            builder.Services.AddTransient<MenuItemViewModel>();
 
             return builder.Build();
         }
