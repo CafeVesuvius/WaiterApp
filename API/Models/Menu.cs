@@ -11,8 +11,7 @@ namespace API.Models
         public int Id { get; set; }
         public required string Name { get; set; }
         public required string Season { get; set; }
-        public string Active { get; set; }
+        public bool Active { get; set; }
         public DateTime? Changed_TS { get; set; }
-        public List<MenuItem>? MenuItems { get; set; }
     }
 }
