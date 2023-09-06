@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-            xmlns:models="clr-namespace:MenuKortV1.Model"
+             xmlns:models="clr-namespace:MenuKortV1.Model"
              xmlns:vm="clr-namespace:MenuKortV1.ViewModel"
              x:DataType="vm:MenuItemViewModel"
              x:Class="MenuKortV1.View.MenuItemPage"
@@ -23,6 +23,8 @@
 
                             <Button
                                Text="{Binding Name}"
+                               Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MenuItemViewModel}}, Path=ViewItemInfoCommand}"
+                               CommandParameter="{Binding .}"
                                Margin="5"
                                FontSize="20"/>
                         </Grid>

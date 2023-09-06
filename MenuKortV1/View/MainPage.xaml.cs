@@ -6,8 +6,8 @@ namespace MenuKortV1
     {
         public MainPage(MainViewModel vm)
         {
-            InitializeComponent();
             BindingContext = vm;
+            InitializeComponent();
         }
     }
 }

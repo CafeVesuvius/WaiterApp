@@ -24,9 +24,9 @@ namespace MenuKortV1.ViewModel
 
         // Navigation
         [RelayCommand]
-        async Task OpenMenuItem(Model.MenuItem mi)
+        async Task ViewItemInfo()
         {
-            await Shell.Current.GoToAsync(nameof(MenuItemPage));
+            await Shell.Current.GoToAsync(nameof(ItemInfo));
         }
     }
 }

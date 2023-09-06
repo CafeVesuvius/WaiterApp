@@ -8,7 +8,9 @@ namespace MenuKortV1
         {
             InitializeComponent();
 
+            // Opret navigationsforbindelse/routing
             Routing.RegisterRoute(nameof(MenuItemPage), typeof(MenuItemPage));
+            Routing.RegisterRoute(nameof(ItemInfo), typeof(ItemInfo));
         }
     }
 }

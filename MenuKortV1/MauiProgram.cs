@@ -25,8 +25,8 @@ namespace MenuKortV1
             builder.Services.AddTransient<MenuItemViewModel>();
 
             // Build siden der viser varens info
-            builder.Services.AddTransient<ItemDetailsPage>();
-            builder.Services.AddTransient<ItemDetailsViewModel>();
+            builder.Services.AddTransient<ItemInfo>();
+            builder.Services.AddTransient<ItemInfoViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();

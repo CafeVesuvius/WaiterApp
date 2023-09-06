@@ -10,5 +10,4 @@
         Title="Menuliste"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
-
 </Shell>
