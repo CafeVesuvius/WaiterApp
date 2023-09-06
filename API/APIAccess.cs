@@ -23,7 +23,6 @@ namespace API
             };
             _serializerOptions = new JsonSerializerOptions()
             {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
                 WriteIndented = true
             };
         }
