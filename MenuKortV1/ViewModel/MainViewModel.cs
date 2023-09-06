@@ -10,6 +10,7 @@ namespace MenuKortV1.ViewModel
     {
         public MainViewModel()
         {
+            // Placeholder data
             Menus = new ObservableCollection<Menu>
             {
                 new Menu
@@ -55,11 +56,13 @@ namespace MenuKortV1.ViewModel
             };
         }
 
+        // Observable collection der indeholder CafeVesuvius menukort
         [ObservableProperty]
         ObservableCollection<Menu> menus;
 
+        // Commando der navigerer til nye side med en bestemt menukorts varer (sender parameter)
         [RelayCommand]
-        async Task Tap(Menu m)
+        async Task OpenMenu(Menu m)
         {
             await Shell.Current.GoToAsync($"{nameof(MenuItemPage)}?",
                 new Dictionary<string, object>

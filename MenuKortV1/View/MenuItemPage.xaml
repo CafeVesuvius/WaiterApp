@@ -8,8 +8,7 @@
              Title="{Binding SelectedMenu.Name}">
     
     <ScrollView>
-        <VerticalStackLayout
-           VerticalOptions="Start">
+        <VerticalStackLayout VerticalOptions="Start">
 
             <CollectionView ItemsSource="{Binding SelectedMenu.Items}">
                 <CollectionView.ItemTemplate>
