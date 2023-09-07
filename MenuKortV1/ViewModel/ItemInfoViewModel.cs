@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace MenuKortV1.ViewModel
 {
+    [QueryProperty("MenuItem", "SelectedMenuItem")]
     public partial class ItemInfoViewModel : ObservableObject
     {
-        public ItemInfoViewModel() { }
+        [ObservableProperty]
+        MenuItem menuItem;
     }
 }

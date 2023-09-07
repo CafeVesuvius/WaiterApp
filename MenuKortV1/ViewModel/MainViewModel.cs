@@ -64,12 +64,7 @@ namespace MenuKortV1.ViewModel
         [RelayCommand]
         async Task OpenMenu(Menu m)
         {
-            await Shell.Current.GoToAsync($"{nameof(MenuItemPage)}?",
-                new Dictionary<string, object>
-                {
-                    { "Menu" , m },
-                });
+            await Shell.Current.GoToAsync($"{nameof(MenuItemPage)}?", new Dictionary<string, object> { { "Menu" , m } } );
         }
-
     }
 }

@@ -1,13 +1,9 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using MenuKortV1.Model;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using CommunityToolkit.Mvvm.Input;
 using MenuKortV1.View;
+using System.Collections.ObjectModel;
+using MenuItem = MenuKortV1.Model.MenuItem;
 
 namespace MenuKortV1.ViewModel
 {
@@ -24,9 +20,9 @@ namespace MenuKortV1.ViewModel
 
         // Navigation
         [RelayCommand]
-        async Task ViewItemInfo()
+        async Task ViewItemInfo(MenuItem m)
         {
-            await Shell.Current.GoToAsync(nameof(ItemInfo));
+            await Shell.Current.GoToAsync(nameof(ItemInfo), new Dictionary<string, object> { { "SelectedMenuItem", m } });
         }
     }
 }

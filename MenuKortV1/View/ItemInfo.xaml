@@ -5,11 +5,32 @@
              xmlns:vm="clr-namespace:MenuKortV1.ViewModel"
              x:Class="MenuKortV1.View.ItemInfo"
              x:DataType="vm:ItemInfoViewModel"
-             Title="ItemInfo">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             Title="title">
+    
+    <ScrollView>
+        <VerticalStackLayout VerticalOptions="Start">
+
+            <CollectionView ItemsSource="{Binding MenuItem}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type models:MenuItem}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Button
+                               Text="{Binding Name}"
+                               Margin="5"
+                               FontSize="20"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+    
 </ContentPage>

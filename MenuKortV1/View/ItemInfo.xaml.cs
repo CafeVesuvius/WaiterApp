@@ -6,8 +6,8 @@ namespace MenuKortV1.View
 	{
 		public ItemInfo(ItemInfoViewModel vm2)
 		{
-			BindingContext = vm2;
             InitializeComponent();
+            BindingContext = vm2;
         }
 	}
 }
