@@ -16,17 +16,15 @@ namespace MenuKortV1
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 }).UseMauiCommunityToolkit();
 
-            // Build forsiden der indeholder menulisten
+            // Dependency service til views
             builder.Services.AddSingleton<MainPage>();
-            builder.Services.AddSingleton<MainViewModel>();
-
-            // Build siden der viser menukortets varer
+            builder.Services.AddSingleton<OrdrePage>();
             builder.Services.AddTransient<MenuItemPage>();
-            builder.Services.AddTransient<MenuItemViewModel>();
 
-            // Build siden der viser varens info
-            builder.Services.AddTransient<ItemInfo>();
-            builder.Services.AddTransient<ItemInfoViewModel>();
+            // Dependency service til view models
+            builder.Services.AddSingleton<MainViewModel>();
+            builder.Services.AddSingleton<OrdreViewModel>();
+            builder.Services.AddTransient<MenuItemViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();

@@ -55,10 +55,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="View\ItemInfo.xaml">
+	  <MauiXaml Update="View\MenuItemPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\MenuItemPage.xaml">
+	  <MauiXaml Update="View\OrdrePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

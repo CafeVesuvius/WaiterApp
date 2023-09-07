@@ -23,7 +23,7 @@
 
                             <Button
                                Text="{Binding Name}"
-                               Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MenuItemViewModel}}, Path=ViewItemInfoCommand}"
+                               Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MenuItemViewModel}}, Path=AddItemCommand}"
                                CommandParameter="{Binding .}"
                                Margin="5"
                                FontSize="20"/>
