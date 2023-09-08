@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using MenuKortV1.Data;
 using MenuKortV1.Model;
 using MenuKortV1.View;
 using System.Collections.ObjectModel;
@@ -10,50 +11,51 @@ namespace MenuKortV1.ViewModel
     {
         public MainViewModel()
         {
+            Menus = new ObservableCollection<Menu>();
             // Placeholder data
-            Menus = new ObservableCollection<Menu>
-            {
-                new Menu
-                {
-                    Id = 1,
-                    Name = "Test",
-                    Season = "Test",
-                    Active = true,
-                    Changed_TS = DateTime.Now,
-                    Items = new List<Model.MenuItem>()
-                    {
-                        new Model.MenuItem
-                        {
-                            Id = 1,
-                            Name = "Grimer Shake",
-                            Description = "urrrple",
-                            UnitPrice = "300",
-                            Active = true,
-                            MenuID = 1
-                        }
-                    }
-                },
-                new Menu
-                {
-                    Id = 2,
-                    Name = "Test 2",
-                    Season = "Test 2",
-                    Active = true,
-                    Changed_TS = DateTime.Now,
-                    Items = new List<Model.MenuItem>()
-                    {
-                        new Model.MenuItem
-                        {
-                            Id = 1,
-                            Name = "asdasdas",
-                            Description = "a",
-                            UnitPrice = "300",
-                            Active = true,
-                            MenuID = 1
-                        }
-                    }
-                }
-            };
+            //Menus = new ObservableCollection<Menu>
+            //{
+            //    new Menu
+            //    {
+            //        Id = 1,
+            //        Name = "Test",
+            //        Season = "Test",
+            //        Active = true,
+            //        Changed_TS = DateTime.Now,
+            //        Items = new List<Model.MenuItem>()
+            //        {
+            //            new Model.MenuItem
+            //            {
+            //                Id = 1,
+            //                Name = "Grimer Shake",
+            //                Description = "urrrple",
+            //                UnitPrice = "300",
+            //                Active = true,
+            //                MenuID = 1
+            //            }
+            //        }
+            //    },
+            //    new Menu
+            //    {
+            //        Id = 2,
+            //        Name = "Test 2",
+            //        Season = "Test 2",
+            //        Active = true,
+            //        Changed_TS = DateTime.Now,
+            //        Items = new List<Model.MenuItem>()
+            //        {
+            //            new Model.MenuItem
+            //            {
+            //                Id = 1,
+            //                Name = "asdasdas",
+            //                Description = "a",
+            //                UnitPrice = "300",
+            //                Active = true,
+            //                MenuID = 1
+            //            }
+            //        }
+            //    }
+            //};
         }
 
         // Observable collection der indeholder CafeVesuvius menukort
