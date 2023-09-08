@@ -15,7 +15,7 @@
                 Text="Nuværende ordre:"
                 />
 
-            <CollectionView ItemsSource="{Binding OrderItems}">
+            <!--<CollectionView ItemsSource="{Binding OrderItems}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="{x:Type models:MenuItem}">
                         <Grid>
@@ -34,7 +34,7 @@
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-            </CollectionView>
+            </CollectionView>-->
             
         </VerticalStackLayout>
     </ScrollView>

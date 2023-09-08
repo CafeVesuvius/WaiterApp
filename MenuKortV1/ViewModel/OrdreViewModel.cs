@@ -11,16 +11,9 @@ namespace MenuKortV1.ViewModel
 {
     public partial class OrdreViewModel : ObservableObject
     {
-        [ObservableProperty]
-        public string orderName;
 
-        [ObservableProperty]
-        ObservableCollection<Model.MenuItem> orderItems;
-
-        public OrdreViewModel(string orderName, ObservableCollection<Model.MenuItem> orderItems)
+        public OrdreViewModel()
         {
-            OrderName = orderName;
-            OrderItems = orderItems;
         }
     }
 }
