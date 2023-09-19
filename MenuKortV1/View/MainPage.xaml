@@ -7,10 +7,14 @@
              x:Class="MenuKortV1.MainPage">
 
     <ScrollView>
-        <VerticalStackLayout
-            VerticalOptions="Start">
+        <VerticalStackLayout VerticalOptions="Start">
 
-        <Label
+            <Button
+                Text="Refresh"
+                Command="{Binding RefreshCommand}"
+                />
+
+            <Label
             Padding="10"
             FontSize="20"
             Text="Vælg et menu fra listen:" />
@@ -27,7 +31,7 @@
                             </Grid.ColumnDefinitions>
                             <Button 
                                 Text="{Binding Name}"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=TapCommand}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=OpenMenuCommand}"
                                 CommandParameter="{Binding .}"
                                 Margin="5"
                                 FontSize="20"

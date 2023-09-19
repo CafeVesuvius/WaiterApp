@@ -16,10 +16,14 @@ namespace MenuKortV1
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 }).UseMauiCommunityToolkit();
 
+            // Dependency service til views
             builder.Services.AddSingleton<MainPage>();
-            builder.Services.AddSingleton<MainViewModel>();
-
+            builder.Services.AddSingleton<OrdrePage>();
             builder.Services.AddTransient<MenuItemPage>();
+
+            // Dependency service til view models
+            builder.Services.AddSingleton<MainViewModel>();
+            builder.Services.AddSingleton<OrdreViewModel>();
             builder.Services.AddTransient<MenuItemViewModel>();
 
 #if DEBUG

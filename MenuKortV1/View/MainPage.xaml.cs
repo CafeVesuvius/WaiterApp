@@ -1,4 +1,6 @@
 ﻿using MenuKortV1.ViewModel;
+using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 namespace MenuKortV1
 {
@@ -6,8 +8,8 @@ namespace MenuKortV1
     {
         public MainPage(MainViewModel vm)
         {
-            InitializeComponent();
             BindingContext = vm;
+            InitializeComponent();
         }
     }
 }

@@ -31,7 +31,7 @@ namespace API
         {
             Menus = new List<Menu>();
 
-            var json = await _client.GetStringAsync("");
+            var json = await _client.GetStringAsync("http://10.130.54.74:2000/api/menu");
             var jsonConverted = JsonConvert.DeserializeObject<List<Menu>>(json);
             return jsonConverted.ToList();
         }

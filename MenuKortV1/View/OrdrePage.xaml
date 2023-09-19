@@ -3,13 +3,21 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:MenuKortV1.Model"
              xmlns:vm="clr-namespace:MenuKortV1.ViewModel"
-             x:DataType="vm:MenuItemViewModel"
-             x:Class="MenuKortV1.View.MenuItemPage"
-             Title="{Binding SelectedMenu.Name}">
-    
+             x:DataType="vm:OrdreViewModel"
+             x:Class="MenuKortV1.View.OrdrePage"
+             Title="Nuværende ordre">
+
     <ScrollView>
         <VerticalStackLayout VerticalOptions="Start">
-            <CollectionView ItemsSource="{Binding SelectedMenu.Items}">
+
+
+            <Label
+                Text="Nuværende ordre:"
+                Margin="5"
+                FontSize="20"
+                />
+
+            <!--<CollectionView ItemsSource="{Binding OrderItems}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="{x:Type models:MenuItem}">
                         <Grid>
@@ -20,16 +28,16 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Button
-                               Text="{Binding Name}"
+                            <Label
+                               Text="{Binding Description}"
                                Margin="5"
                                FontSize="20"/>
+
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-            </CollectionView>
-
+            </CollectionView>-->
+            
         </VerticalStackLayout>
     </ScrollView>
-    
 </ContentPage>

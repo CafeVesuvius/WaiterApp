@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+
 <Shell
     x:Class="MenuKortV1.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MenuKortV1"
+    xmlns:page="clr-namespace:MenuKortV1.View"
+    xmlns:views="clr-namespace:MenuKortV1.View"
     Shell.FlyoutBehavior="Disabled">
 
-    <ShellContent
-        Title="Menuliste"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <TabBar>
+        <ShellContent
+            Title="Menuliste"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="MainPage" />
 
+        <ShellContent
+            Title="Ordrer"
+            ContentTemplate="{x:DataTemplate views:OrdrePage}"
+            Route="OrdrePage"/>
+    </TabBar>
 </Shell>
