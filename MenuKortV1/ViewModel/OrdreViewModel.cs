@@ -1,19 +1,26 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using MenuItem = MenuKortV1.Model.MenuItem;
 
 namespace MenuKortV1.ViewModel
 {
+    //[QueryProperty("chosenMenuItem", "NewItem")]
+
     public partial class OrdreViewModel : ObservableObject
     {
-
         public OrdreViewModel()
         {
+            //Order = new ObservableCollection<MenuItem>();
+        }
+
+        [ObservableProperty]
+        ObservableCollection<MenuItem> order = new ObservableCollection<MenuItem>();
+        //MenuItem chosenMenuItem;
+
+        public void AddingItem(MenuItem mi)
+        {
+            Order.Add(mi);
         }
     }
 }

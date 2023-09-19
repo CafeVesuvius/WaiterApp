@@ -9,7 +9,7 @@
     
     <ScrollView>
         <VerticalStackLayout VerticalOptions="Start">
-            <CollectionView ItemsSource="{Binding SelectedMenu.Items}">
+            <CollectionView ItemsSource="{Binding SelectedMenu.Items}" ItemsLayout="VerticalGrid, 2">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="{x:Type models:MenuItem}">
                         <Grid>
@@ -21,9 +21,14 @@
                             </Grid.ColumnDefinitions>
 
                             <Button
-                               Text="{Binding Name}"
-                               Margin="5"
-                               FontSize="20"/>
+                                Text="{Binding Name}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MenuItemViewModel}}, Path=AddItemCommand}"
+                                CommandParameter="{Binding .}"
+                                LineBreakMode="WordWrap"
+                                CornerRadius="0"
+                                Margin="1"
+                                HeightRequest="100"
+                                FontSize="16"/>
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

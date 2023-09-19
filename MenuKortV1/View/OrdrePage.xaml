@@ -10,16 +10,15 @@
     <ScrollView>
         <VerticalStackLayout VerticalOptions="Start">
 
-
             <Label
-                Text="Nuværende ordre:"
+                Text="Varer i ordren:"
                 Margin="5"
                 FontSize="20"
                 />
 
-            <!--<CollectionView ItemsSource="{Binding OrderItems}">
+            <CollectionView ItemsSource="{Binding Order}">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="{x:Type models:MenuItem}">
+                    <DataTemplate x:DataType="models:MenuItem">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -29,14 +28,14 @@
                             </Grid.ColumnDefinitions>
 
                             <Label
-                               Text="{Binding Description}"
+                               Text="{Binding Name}"
                                Margin="5"
                                FontSize="20"/>
 
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-            </CollectionView>-->
+            </CollectionView>
             
         </VerticalStackLayout>
     </ScrollView>

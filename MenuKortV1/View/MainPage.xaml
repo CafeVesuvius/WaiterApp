@@ -11,21 +11,23 @@
 
             <Button
                 Text="Refresh"
-                Command="{Binding RefreshCommand}"
-                />
+                CornerRadius="0"
+                FontSize="20"
+                BackgroundColor="slategrey"
+                Command="{Binding RefreshCommand}"/>
 
             <Label
-            Padding="10"
-            FontSize="20"
-            Text="Vælg et menu fra listen:" />
+                Padding="10"
+                FontSize="20"
+                Text="Vælg et menu fra listen:"/>
 
-        <CollectionView ItemsSource="{Binding Menus}">
-            <CollectionView.ItemTemplate>
+            <CollectionView ItemsSource="{Binding Menus}">
+                <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="models:Menu">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
@@ -33,15 +35,14 @@
                                 Text="{Binding Name}"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=OpenMenuCommand}"
                                 CommandParameter="{Binding .}"
-                                Margin="5"
+                                Margin="1"
                                 FontSize="20"
                                 CornerRadius="0"/>
                         </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
 
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>

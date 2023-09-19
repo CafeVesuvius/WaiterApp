@@ -1,15 +1,5 @@
 ﻿using MenuKortV1.Model;
-using MvvmHelpers;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Text.Json;
-using System.Threading.Tasks;
-using MenuItem = MenuKortV1.Model.MenuItem;
 
 namespace MenuKortV1.Data
 {
@@ -20,10 +10,7 @@ namespace MenuKortV1.Data
 
         static APIAccess()
         {
-            client = new HttpClient()
-            {
-                BaseAddress = new Uri(ApiBaseUrl)
-            };
+            client = new HttpClient() { BaseAddress = new Uri(ApiBaseUrl) };
         }
 
         public static async Task<Menu> GetMenu()
@@ -34,4 +21,3 @@ namespace MenuKortV1.Data
         }
     }
 }
-//https://www.youtube.com/watch?v=a37qBMt0V9w&ab_channel=JamesMontemagno

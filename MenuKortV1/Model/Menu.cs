@@ -14,6 +14,7 @@ namespace MenuKortV1.Model
         public string Season { get; set; }
         public bool Active { get; set; }
         public DateTime Changed_TS { get; set; }
+
         [JsonProperty("menuItems")]
         public List<MenuItem> Items { get; set; }
     }
