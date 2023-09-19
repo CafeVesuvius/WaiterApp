@@ -9,7 +9,12 @@
     <ScrollView>
         <VerticalStackLayout VerticalOptions="Start">
 
-        <Label
+            <Button
+                Text="Refresh"
+                Command="{Binding RefreshCommand}"
+                />
+
+            <Label
             Padding="10"
             FontSize="20"
             Text="Vælg et menu fra listen:" />

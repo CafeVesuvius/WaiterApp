@@ -13,6 +13,8 @@
 
             <Label
                 Text="Nuværende ordre:"
+                Margin="5"
+                FontSize="20"
                 />
 
             <!--<CollectionView ItemsSource="{Binding OrderItems}">

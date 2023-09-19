@@ -1,4 +1,6 @@
 ﻿using MenuKortV1.ViewModel;
+using Newtonsoft.Json;
+using System.Collections.ObjectModel;
 
 namespace MenuKortV1
 {

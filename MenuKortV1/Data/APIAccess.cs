@@ -1,45 +1,37 @@
-﻿using Newtonsoft.Json;
+﻿using MenuKortV1.Model;
+using MvvmHelpers;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using MenuItem = MenuKortV1.Model.MenuItem;
 
 namespace MenuKortV1.Data
 {
-    public class APIAccess
+    public static class APIAccess
     {
-        static readonly string BaseAddress = "http://10.130.54.74:2000";
-        static readonly string Url = $"{BaseAddress}/api";
+        static readonly string ApiBaseUrl = "http://10.130.54.74:2000/";
+        static readonly HttpClient client;
 
-        HttpClient _client;
-        JsonSerializerOptions _serializerOptions;
-
-        public List<Model.Menu> Menus { get; private set; }
-        static string BaseUrl = "";
-
-
-        public APIAccess()
+        static APIAccess()
         {
-            _client = new HttpClient
+            client = new HttpClient()
             {
-                BaseAddress = new Uri(BaseUrl)
-            };
-            _serializerOptions = new JsonSerializerOptions()
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                WriteIndented = true
+                BaseAddress = new Uri(ApiBaseUrl)
             };
         }
 
-        public async Task<List<Model.Menu>> GetMenusAsync()
+        public static async Task<Menu> GetMenu()
         {
-            Menus = new List<Model.Menu>();
-
-            var json = await _client.GetStringAsync($"{Url}/menu");
-            var jsonConverted = JsonConvert.DeserializeObject<List<Model.Menu>>(json);
-            return jsonConverted.ToList();
+            var json = await client.GetStringAsync(ApiBaseUrl+"api/menu");
+            var menus = JsonConvert.DeserializeObject<Menu>(json);
+            return menus;
         }
     }
 }
+//https://www.youtube.com/watch?v=a37qBMt0V9w&ab_channel=JamesMontemagno
