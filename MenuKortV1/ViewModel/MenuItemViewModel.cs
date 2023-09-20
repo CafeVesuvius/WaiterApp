@@ -16,24 +16,19 @@ namespace MenuKortV1.ViewModel
         [ObservableProperty]
         Menu selectedMenu;
 
+        // Define an observable collection for order
         [ObservableProperty]
-        ObservableCollection<MenuItem> tempList = new ObservableCollection<MenuItem>();
-
-        public OrdreViewModel Ovm = new OrdreViewModel();
+        ObservableCollection<MenuItem> order = new ObservableCollection<MenuItem>();
 
         //Add menu items to an order
-       [RelayCommand]
+        [RelayCommand]
         async Task AddItem(MenuItem mi)
         {
-            TempList.Add(mi);
-            await Shell.Current.GoToAsync($"{nameof(OrdrePage)}?", new Dictionary<string, object> { { "NewItem", TempList } });
+            // Add items to the collection
+            Order.Add(mi);
+
+            // Pass the collection to a new page
+            await Shell.Current.GoToAsync($"{nameof(OrdrePage)}?", new Dictionary<string, object> { { "NewItem", Order } });
         }
-
-        //[RelayCommand]
-        //void AddItem(MenuItem mi)
-        //{
-        //    Ovm.Order.Add(mi);
-        //}
-
     }
 }

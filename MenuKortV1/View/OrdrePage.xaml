@@ -5,15 +5,16 @@
              xmlns:vm="clr-namespace:MenuKortV1.ViewModel"
              x:DataType="vm:OrdreViewModel"
              x:Class="MenuKortV1.View.OrdrePage"
-             Title="Nuværende ordre">
+             Title="Ordre detaljer">
 
     <ScrollView>
         <VerticalStackLayout VerticalOptions="Start">
 
             <Label
-                Text="Varer i ordren:"
+                Text="Varer"
                 Margin="5"
                 FontSize="20"
+                FontAttributes="Bold"
                 />
 
             <!--<Label
@@ -28,8 +29,10 @@
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
@@ -38,10 +41,20 @@
                                Margin="5"
                                FontSize="20"/>
 
+                            <Label
+                                Grid.Column="1"
+                                Margin="5"
+                                FontSize="20"
+                                Text="{Binding UnitPrice}"
+                                />
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
+            
+            <Label
+                Text="{Binding FullPrice}"
+                />
             
         </VerticalStackLayout>
     </ScrollView>

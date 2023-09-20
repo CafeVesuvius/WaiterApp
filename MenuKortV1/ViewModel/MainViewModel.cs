@@ -3,7 +3,6 @@ using MenuKortV1.Data;
 using MenuKortV1.Model;
 using MenuKortV1.View;
 using System.Collections.ObjectModel;
-using System.Security.Cryptography.X509Certificates;
 using ObservableObject = CommunityToolkit.Mvvm.ComponentModel.ObservableObject;
 
 namespace MenuKortV1.ViewModel
@@ -20,18 +19,22 @@ namespace MenuKortV1.ViewModel
             await Shell.Current.GoToAsync($"{nameof(MenuItemPage)}?", new Dictionary<string, object> { { "Menu" , m } } );
         }
 
-        // Get data from API
+        // Command, which gets/refreshes menu data from the API
         [RelayCommand]
         async Task Refresh()
         {
+            // Get data
             var menus = await APIAccess.GetMenu();
+
+            // Check if data isn't null
             if(menus != null)
             {
                 Menus.Clear();
+                // Only add active menus to the menu list
                 if(!menus.Active)
                 {
                     Menus.Add(menus);
-                }
+                }  
             }
         }
     }
