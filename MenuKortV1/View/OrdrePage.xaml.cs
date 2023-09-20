@@ -6,7 +6,7 @@ namespace MenuKortV1.View
 	{
 		public OrdrePage(OrdreViewModel vm)
 		{
-			InitializeComponent();
+            InitializeComponent();
 			BindingContext = vm;
 		}
 	}

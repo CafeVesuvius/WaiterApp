@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:MenuKortV1.Model"
+             xmlns:model="clr-namespace:MenuKortV1.Model"
              xmlns:vm="clr-namespace:MenuKortV1.ViewModel"
              x:DataType="vm:OrdreViewModel"
              x:Class="MenuKortV1.View.OrdrePage"
@@ -16,9 +16,15 @@
                 FontSize="20"
                 />
 
+            <!--<Label
+                Text="{Binding ChosenMenuItem.Name}"
+                Margin="5"
+                FontSize="20"
+                />-->
+
             <CollectionView ItemsSource="{Binding Order}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:MenuItem">
+               <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:MenuItem">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>

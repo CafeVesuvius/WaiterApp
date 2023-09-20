@@ -17,14 +17,23 @@ namespace MenuKortV1.ViewModel
         Menu selectedMenu;
 
         [ObservableProperty]
-        OrdreViewModel ovm = new OrdreViewModel();
+        ObservableCollection<MenuItem> tempList = new ObservableCollection<MenuItem>();
 
-        // Add menu items to an order
-        [RelayCommand]
-        void AddItem(MenuItem mi)
+        public OrdreViewModel Ovm = new OrdreViewModel();
+
+        //Add menu items to an order
+       [RelayCommand]
+        async Task AddItem(MenuItem mi)
         {
-            Ovm.AddingItem(mi);
+            TempList.Add(mi);
+            await Shell.Current.GoToAsync($"{nameof(OrdrePage)}?", new Dictionary<string, object> { { "NewItem", TempList } });
         }
+
+        //[RelayCommand]
+        //void AddItem(MenuItem mi)
+        //{
+        //    Ovm.Order.Add(mi);
+        //}
 
     }
 }
