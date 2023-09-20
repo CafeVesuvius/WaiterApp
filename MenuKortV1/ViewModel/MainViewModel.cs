@@ -24,9 +24,15 @@ namespace MenuKortV1.ViewModel
         [RelayCommand]
         async Task Refresh()
         {
-            Menus.Clear();
             var menus = await APIAccess.GetMenu();
-            Menus.Add(menus);
+            if(menus != null)
+            {
+                Menus.Clear();
+                if(!menus.Active)
+                {
+                    Menus.Add(menus);
+                }
+            }
         }
     }
 }
