@@ -31,7 +31,10 @@ namespace MenuKortV1.ViewModel
         bool noteIsEnabled = false;
 
         [ObservableProperty]
-        string dynamicButtonName = "Noter til ordre";
+        bool vareAndNulstilIsVisible = false;
+
+        [ObservableProperty]
+        string dynamicButtonName = "Redigere";
 
         [RelayCommand]
         void ResetOrder()
@@ -54,7 +57,7 @@ namespace MenuKortV1.ViewModel
             {
                 case true:
                     NoteIsEnabled = false;
-                    DynamicButtonName = "Noter til ordre";
+                    DynamicButtonName = "Redigere";
                     break;
 
                 case false:

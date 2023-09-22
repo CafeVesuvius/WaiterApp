@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.Input;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using MenuKortV1.Data;
 using MenuKortV1.Model;
 using MenuKortV1.View;
@@ -11,6 +12,9 @@ namespace MenuKortV1.ViewModel
     {
         // Define an observable collection for menus
         public ObservableCollection<Menu> Menus { get; set; } = new ObservableCollection<Menu>();
+
+        [ObservableProperty]
+        bool showTitle = false;
 
         // Pass menu parameters to a new page
         [RelayCommand]
@@ -34,7 +38,8 @@ namespace MenuKortV1.ViewModel
                 if(!menus.Active)
                 {
                     Menus.Add(menus);
-                }  
+                }
+                ShowTitle = true;
             }
         }
     }

@@ -10,7 +10,7 @@
         <VerticalStackLayout VerticalOptions="Start">
 
             <Button
-                Text="Refresh"
+                Text="Hent menulisten"
                 CornerRadius="0"
                 FontSize="20"
                 BackgroundColor="slategrey"
@@ -19,7 +19,9 @@
             <Label
                 Padding="10"
                 FontSize="20"
-                Text="Vælg et menu fra listen:"/>
+                Text="Vælg et menu fra listen:"
+                IsVisible="{Binding ShowTitle}"
+                />
 
             <CollectionView ItemsSource="{Binding Menus}">
                 <CollectionView.ItemTemplate>

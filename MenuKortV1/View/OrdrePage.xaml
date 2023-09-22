@@ -73,7 +73,11 @@
                 />
 
             <Label
-                Text="Noter:"
+                Text=""
+                />
+
+            <Label
+                Text="Noter til ordre:"
                 Margin="5"
                 FontSize="20"
                 FontAttributes="Bold"
