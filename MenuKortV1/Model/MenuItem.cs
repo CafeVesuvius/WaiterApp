@@ -19,6 +19,9 @@ namespace MenuKortV1.Model
         [JsonProperty("active")]
         public bool Active { get; set; }
 
+        [JsonProperty("imagePath")]
+        public string ImagePath { get; set; }
+
         [JsonProperty("menuId")]
         public int MenuID { get; set; }
     }
