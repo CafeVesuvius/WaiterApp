@@ -27,14 +27,11 @@ namespace MenuKortV1.ViewModel
         [ObservableProperty]
         Editor thisEditor = new Editor();
 
-        [ObservableProperty]
-        bool noteIsEnabled = false;
+        //[ObservableProperty]
+        //bool noteIsEnabled = false;
 
-        [ObservableProperty]
-        bool vareAndNulstilIsVisible = false;
-
-        [ObservableProperty]
-        string dynamicButtonName = "Redigere";
+        //[ObservableProperty]
+        //string dynamicButtonName = "Redigere";
 
         [RelayCommand]
         void ResetOrder()
@@ -48,25 +45,22 @@ namespace MenuKortV1.ViewModel
             Order.Remove(mi);
         }
 
-        [RelayCommand]
-        void ShowHideNoteField(Editor e)
-        {
-            //e.Text = "cringe";
-            //Note = "";
-            switch (NoteIsEnabled)
-            {
-                case true:
-                    NoteIsEnabled = false;
-                    DynamicButtonName = "Redigere";
-                    break;
+        //[RelayCommand]
+        //void ShowHideNoteField(Editor e)
+        //{
+        //    //switch (NoteIsEnabled)
+        //    //{
+        //    //    case true:
+        //    //        NoteIsEnabled = false;
+        //    //        DynamicButtonName = "Redigere";
+        //    //        break;
 
-                case false:
-                    NoteIsEnabled = true;
-                    DynamicButtonName = "Gem";
-                    break;
-            }
-        }
-
+        //    //    case false:
+        //    //        NoteIsEnabled = true;
+        //    //        DynamicButtonName = "Gem";
+        //    //        break;
+        //    //}
+        //}
 
     }
 }

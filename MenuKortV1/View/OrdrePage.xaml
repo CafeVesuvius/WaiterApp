@@ -72,9 +72,7 @@
                 FontSize="17"
                 />
 
-            <Label
-                Text=""
-                />
+            <Label Text=""/>
 
             <Label
                 Text="Noter til ordre:"
@@ -88,19 +86,26 @@
 
             <Editor
                 x:Name="ThisEditor"
-                IsEnabled="{Binding NoteIsEnabled}"
                 AutoSize="TextChanges"
                 />
 
-            <Button
+            <!--<Button
                 Text="{Binding DynamicButtonName}"
                 CornerRadius="0"
                 FontSize="17"
                 VerticalOptions="End"
                 Command="{Binding Source={RelativeSource AncestorType={x:Type vm:OrdreViewModel}}, Path=ShowHideNoteFieldCommand}"
                 CommandParameter="{Binding ThisEditor}"
+                />-->
+            
+            <Label Text=""/>
+
+            <Button
+                FontSize="17"
+                Text="Send ordre"
+                CornerRadius="0"
                 />
-                
+
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
