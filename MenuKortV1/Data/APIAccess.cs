@@ -1,5 +1,6 @@
 ﻿using MenuKortV1.Model;
 using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace MenuKortV1.Data
 {
@@ -8,6 +9,9 @@ namespace MenuKortV1.Data
         // Define a variable to store the API adress
         static readonly string ApiBaseUrl = "http://10.130.54.74:2000/";
 
+        // Define API token
+        private static string AuthorizationToken = "test";
+
         // Define a http client
         static readonly HttpClient client;
 
@@ -15,6 +19,8 @@ namespace MenuKortV1.Data
         static APIAccess()
         {
             client = new HttpClient() { BaseAddress = new Uri(ApiBaseUrl) };
+            client.DefaultRequestHeaders.Add("Accept", "application/json");
+            client.DefaultRequestHeaders.Add("dotnetconfstudentzone", AuthorizationToken);
         }
 
         // Get json string and deserialize it
