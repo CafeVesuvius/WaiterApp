@@ -13,6 +13,7 @@ namespace MenuKortV1.ViewModel
         // Define an observable collection for menus
         public ObservableCollection<Menu> Menus { get; set; } = new ObservableCollection<Menu>();
 
+        // Define bool for Show&Hide behaviour for home screen title
         [ObservableProperty]
         bool showTitle = false;
 
@@ -33,12 +34,26 @@ namespace MenuKortV1.ViewModel
             // Check if data isn't null
             if(menus != null)
             {
+                // Clear the menu list before refreshing it with new data
                 Menus.Clear();
+
                 // Only add active menus to the menu list
                 if(!menus.Active)
                 {
+                    // Remove inactive menu items from the menu
+                    foreach (var menuItem in menus.Items)
+                    {
+                        if (!menuItem.Active)
+                        {
+                            menus.Items.Remove(menuItem);
+                        }
+                    }
+
+                    // Add the menus
                     Menus.Add(menus);
                 }
+
+                // Only show "Vælg er menu fra listen:" if there is at least one menu in the list
                 ShowTitle = true;
             }
         }
