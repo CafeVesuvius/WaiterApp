@@ -81,31 +81,26 @@
                 FontAttributes="Bold"
                 />
 
-            <!--<Label
-                Text="{Binding Note}"/>-->
-
             <Editor
-                x:Name="ThisEditor"
+                Text="{Binding ThisEditor.Text}"
                 AutoSize="TextChanges"
                 />
 
-            <!--<Button
-                Text="{Binding DynamicButtonName}"
-                CornerRadius="0"
-                FontSize="17"
-                VerticalOptions="End"
-                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:OrdreViewModel}}, Path=ShowHideNoteFieldCommand}"
-                CommandParameter="{Binding ThisEditor}"
-                />-->
-            
             <Label Text=""/>
 
             <Button
                 FontSize="17"
                 Text="Send ordre"
                 CornerRadius="0"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:OrdreViewModel}}, Path=SendOrdreCommand}"
+                CommandParameter="{Binding ThisEditor}"
                 />
+
+            <!--<Label
+                Text="{Binding Note}"
+                />-->
 
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
+

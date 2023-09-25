@@ -17,50 +17,36 @@ namespace MenuKortV1.ViewModel
         {
         }
 
-        //Define observable collection for the current order
+        // Define observable collection for the current order
         [ObservableProperty]
         ObservableCollection<MenuItem> order = new ObservableCollection<MenuItem>();
 
+        // Define a string variable to store notes for the order
         [ObservableProperty]
         string note = "";
 
-        [ObservableProperty]
-        Editor thisEditor = new Editor();
+        // Define editor/text field for order notes
+        public Editor ThisEditor { get; set; } = new Editor();
 
-        //[ObservableProperty]
-        //bool noteIsEnabled = false;
-
-        //[ObservableProperty]
-        //string dynamicButtonName = "Redigere";
-
+        // Define a command, which clears an order
         [RelayCommand]
         void ResetOrder()
         {
             Order.Clear();
         }
 
+        // Define a command, which removes a specific item from an order
         [RelayCommand]
         void RemoveThisItemFromOrder(MenuItem mi)
         {
             Order.Remove(mi);
         }
 
-        //[RelayCommand]
-        //void ShowHideNoteField(Editor e)
-        //{
-        //    //switch (NoteIsEnabled)
-        //    //{
-        //    //    case true:
-        //    //        NoteIsEnabled = false;
-        //    //        DynamicButtonName = "Redigere";
-        //    //        break;
-
-        //    //    case false:
-        //    //        NoteIsEnabled = true;
-        //    //        DynamicButtonName = "Gem";
-        //    //        break;
-        //    //}
-        //}
-
+        // Save the input in a variable
+        [RelayCommand]
+        void SendOrdre()
+        {
+            Note = ThisEditor.Text;
+        }
     }
 }
