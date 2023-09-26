@@ -10,10 +10,10 @@ namespace MenuKortV1.ViewModel
     // Pass parameters from "MenuItemViewModel"
     [QueryProperty("Order", "NewItem")]
 
-    public partial class OrdreViewModel : ObservableObject
+    public partial class OrdreDetailsViewModel : ObservableObject
     {
         //
-        public OrdreViewModel()
+        public OrdreDetailsViewModel()
         {
         }
 
