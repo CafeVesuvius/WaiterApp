@@ -8,7 +8,7 @@ namespace MenuKortV1.Model
 {
     public class Order
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
 
         public string Name { get; set; } = null!;
 

@@ -16,7 +16,7 @@ namespace MenuKortV1.Model
         [JsonProperty("unitPrice")]
         public string UnitPrice { get; set; }
 
-        [JsonProperty("active")]
+        [JsonProperty("isActive")]
         public bool Active { get; set; }
 
         [JsonProperty("imagePath")]

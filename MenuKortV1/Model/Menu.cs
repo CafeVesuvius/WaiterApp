@@ -13,10 +13,10 @@ namespace MenuKortV1.Model
         [JsonProperty("season")]
         public string Season { get; set; }
 
-        [JsonProperty("active")]
+        [JsonProperty("isActive")]
         public bool Active { get; set; }
 
-        [JsonProperty("changed")]
+        [JsonProperty("changedDate")]
         public DateTime Changed_TS { get; set; }
 
         [JsonProperty("menuItems")]
