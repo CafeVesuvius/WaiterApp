@@ -1,4 +1,6 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Maui.Alerts;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MenuKortV1.Data;
 using MenuKortV1.Model;
@@ -56,6 +58,18 @@ namespace MenuKortV1.ViewModel
                 // Only show "Vælg er menu fra listen:" if there is at least one menu in the list
                 ShowTitle = true;
             }
+            else
+            {
+                AToastToYou("NO MENUUUUS!!");
+            }
+        }
+
+        // Dynamisk "Toast" (popup) function
+        public static Task AToastToYou(string toastText)
+        {
+            CancellationTokenSource cts = new CancellationTokenSource();
+            var yourToast = Toast.Make(toastText, ToastDuration.Short, 14).Show(cts.Token);
+            return yourToast;
         }
     }
 }
