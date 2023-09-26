@@ -28,7 +28,7 @@ namespace MenuKortV1.ViewModel
             Order.Add(mi);
 
             // Pass the collection to a new page
-            await Shell.Current.GoToAsync($"{nameof(OrdrePage)}?", new Dictionary<string, object> { { "NewItem", Order } });
+            await Shell.Current.GoToAsync($"{nameof(OrdreDetailsPage)}?", new Dictionary<string, object> { { "NewItem", Order } });
         }
     }
 }
