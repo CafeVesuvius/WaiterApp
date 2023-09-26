@@ -3,104 +3,22 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:model="clr-namespace:MenuKortV1.Model"
              xmlns:vm="clr-namespace:MenuKortV1.ViewModel"
-             x:DataType="vm:OrdreViewModel"
+             x:DataType="vm:OrdrePageViewModel"
              x:Class="MenuKortV1.View.OrdrePage"
-             Title="Ordre detaljer">
-
+             Title="OrdrePage">
     <ScrollView>
-        <VerticalStackLayout VerticalOptions="Start">
-
-            <Label
-                Text="Varer:"
-                Margin="5"
-                FontSize="20"
-                FontAttributes="Bold"
+        <VerticalStackLayout>
+            <Entry 
+                Text="{Binding ThisEntry.Text}"
+                Placeholder="Navn eller bord nr."
                 />
-            <CollectionView ItemsSource="{Binding Order}">
-               <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:MenuItem">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="3*"/>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="45"/>
-                            </Grid.ColumnDefinitions>
 
-                            <Label
-                                Text="{Binding Name}"
-                                Margin="5"
-                                FontSize="17"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center"
-                                />
-
-                            <Label
-                                Grid.Column="1"
-                                Margin="5"
-                                FontSize="17"
-                                Text="{Binding UnitPrice}"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center"
-                                />
-
-                            <Button
-                                Grid.Column="2"
-                                Text="X"
-                                FontSize="20"
-                                HeightRequest="45"
-                                WidthRequest="45"
-                                BackgroundColor="Brown"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:OrdreViewModel}}, Path=RemoveThisItemFromOrderCommand}"
-                                CommandParameter="{Binding .}"
-                                HorizontalOptions="End"
-                                CornerRadius="0"
-                                />
-                        </Grid>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-
-            <Button
-                Text="Nulstil"
-                CornerRadius="0"
-                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:OrdreViewModel}}, Path=ResetOrderCommand}"
-                CommandParameter="{Binding Order}"
-                VerticalOptions="End"
-                FontSize="17"
+            <Button 
+                Text="Open Order"
+                Command="{Binding PostOrderCommand}"
                 />
 
             <Label Text=""/>
-
-            <Label
-                Text="Noter til ordre:"
-                Margin="5"
-                FontSize="20"
-                FontAttributes="Bold"
-                />
-
-            <Editor
-                Text="{Binding ThisEditor.Text}"
-                AutoSize="TextChanges"
-                />
-
-            <Label Text=""/>
-
-            <Button
-                FontSize="17"
-                Text="Send ordre"
-                CornerRadius="0"
-                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:OrdreViewModel}}, Path=SendOrdreCommand}"
-                CommandParameter="{Binding ThisEditor}"
-                />
-
-            <!--<Label
-                Text="{Binding Note}"
-                />-->
-
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
-

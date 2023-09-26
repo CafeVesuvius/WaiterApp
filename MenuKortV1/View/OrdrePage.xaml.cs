@@ -4,9 +4,9 @@ namespace MenuKortV1.View
 {
 	public partial class OrdrePage : ContentPage
 	{
-		public OrdrePage(OrdreViewModel vm)
+		public OrdrePage(OrdrePageViewModel vm)
 		{
-            InitializeComponent();
+			InitializeComponent();
 			BindingContext = vm;
 		}
 	}
