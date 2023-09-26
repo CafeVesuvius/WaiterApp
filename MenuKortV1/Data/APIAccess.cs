@@ -7,7 +7,7 @@ namespace MenuKortV1.Data
     public static class APIAccess
     {
         // Define a variable to store the API adress
-        static readonly string ApiBaseUrl = "http://10.130.54.74:2000/";
+        static readonly string ApiBaseUrl = "http://10.130.54.74:2000";
 
         // Define API token
         private static string AuthorizationToken = "test";
@@ -26,9 +26,15 @@ namespace MenuKortV1.Data
         // Get json string and deserialize it
         public static async Task<Menu> GetMenu()
         {
-            var json = await client.GetStringAsync(ApiBaseUrl+"api/menu");
+            var json = await client.GetStringAsync(ApiBaseUrl+"/api/menu");
             var menus = JsonConvert.DeserializeObject<Menu>(json);
             return menus;
+        }
+
+        // Serialise
+        public static async Task<Order> OrderPoster()
+        {
+            return null;
         }
     }
 }
