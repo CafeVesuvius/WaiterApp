@@ -8,13 +8,14 @@
              Title="OrdrePage">
     <ScrollView>
         <VerticalStackLayout>
-            <Entry 
-                Text="{Binding ThisEntry.Text}"
+            <Entry
+                Text="{Binding OrderName}"
                 Placeholder="Navn eller bord nr."
+                IsEnabled="{Binding EntryEnablerDisabler}"
                 />
 
             <Button 
-                Text="Open Order"
+                Text="Create Order"
                 Command="{Binding PostOrderCommand}"
                 />
 
