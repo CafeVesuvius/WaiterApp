@@ -25,6 +25,10 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
+                            <Image
+                                Source="{Binding ImagePath}"
+                                />
+
                             <Button
                                 Text="{Binding Name}"
                                 Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MenuItemViewModel}}, Path=AddItemCommand}"
