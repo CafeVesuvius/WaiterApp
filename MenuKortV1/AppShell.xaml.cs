@@ -1,4 +1,5 @@
 ﻿using MenuKortV1.View;
+using MenuKortV1.ViewModel;
 
 namespace MenuKortV1
 {
@@ -11,6 +12,7 @@ namespace MenuKortV1
             // Opret navigationsforbindelse/routing
             Routing.RegisterRoute(nameof(MenuItemPage), typeof(MenuItemPage));
             Routing.RegisterRoute(nameof(OrdrePage), typeof(OrdrePage));
+            Routing.RegisterRoute(nameof(OrdreDetailsPage), typeof(OrdreDetailsPage));
         }
     }
 }
