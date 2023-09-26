@@ -18,13 +18,15 @@ namespace MenuKortV1
 
             // Register dependency injection for views
             builder.Services.AddSingleton<MainPage>();
-            builder.Services.AddSingleton<OrdrePage>();
+            builder.Services.AddSingleton<OrdreDetailsPage>();
             builder.Services.AddTransient<MenuItemPage>();
+            builder.Services.AddTransient<OrdrePage>();
 
             // Register dependency injection for models
             builder.Services.AddSingleton<MainViewModel>();
-            builder.Services.AddSingleton<OrdreViewModel>();
+            builder.Services.AddSingleton<OrdreDetailsViewModel>();
             builder.Services.AddTransient<MenuItemViewModel>();
+            builder.Services.AddTransient<OrdrePageViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();
