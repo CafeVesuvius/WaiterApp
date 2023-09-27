@@ -5,7 +5,7 @@
              xmlns:vm="clr-namespace:MenuKortV1.ViewModel"
              x:DataType="vm:OrdreDetailsViewModel"
              x:Class="MenuKortV1.View.OrdreDetailsPage"
-             Title="Ordre detaljer">
+             Title="{Binding CurrentOrder.Name}">
 
     <ScrollView>
         <VerticalStackLayout VerticalOptions="Start">
