@@ -11,8 +11,7 @@ namespace MenuKortV1
 
             // Opret navigationsforbindelse/routing
             Routing.RegisterRoute(nameof(MenuItemPage), typeof(MenuItemPage));
-            Routing.RegisterRoute(nameof(OrdrePage), typeof(OrdrePage));
-            Routing.RegisterRoute(nameof(OrdreDetailsPage), typeof(OrdreDetailsPage));
+            Routing.RegisterRoute(nameof(MenusPage), typeof(MenusPage));
         }
     }
 }
