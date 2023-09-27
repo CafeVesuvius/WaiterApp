@@ -13,7 +13,8 @@
         <ShellContent
             Title="Menuliste"
             ContentTemplate="{DataTemplate local:MainPage}"
-            Route="MainPage" />
+            Route="MainPage" 
+            />
 
         <ShellContent
             Title="Ordrer"
