@@ -9,16 +9,16 @@
     xmlns:views="clr-namespace:MenuKortV1.View"
     Shell.FlyoutBehavior="Disabled">
 
-    <TabBar>
-        <ShellContent
-            Title="Menuliste"
+    <ShellContent
+            Title="Ordre"
             ContentTemplate="{DataTemplate local:MainPage}"
             Route="MainPage" 
             />
 
+    <!--<TabBar>
         <ShellContent
-            Title="Ordrer"
-            ContentTemplate="{x:DataTemplate views:OrdrePage}"
-            Route="OrdrePage"/>
-    </TabBar>
+            Title="Menuliste"
+            ContentTemplate="{x:DataTemplate views:MenusPage}"
+            Route="MenusPage"/>
+    </TabBar>-->
 </Shell>
