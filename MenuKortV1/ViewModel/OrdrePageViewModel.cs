@@ -8,6 +8,7 @@ using MenuKortV1.Model;
 using MenuKortV1.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -34,6 +35,9 @@ namespace MenuKortV1.ViewModel
         [ObservableProperty]
         Order myOrder;
 
+        [ObservableProperty]
+        ObservableCollection<Order> myOrders = new ObservableCollection<Order>();
+
         // Function to post order
         [RelayCommand]
         async Task PostOrderAsync()
@@ -55,27 +59,20 @@ namespace MenuKortV1.ViewModel
                     OrderLines = new List<OrderLine>() { }
                 };
 
-                // Post order to API & get response
-                var boing = await APIAccess.OrderPoster(MyOrder);
-
-                AToastToYou(boing);
-
-                // If there is response -> continue
-                //if (boing == ":3")
-                //{
-                //    await Shell.Current.GoToAsync(nameof(OrdreDetailsPage));
-                //}
-                //else
-                //{
-                //    AToastToYou(boing);
-                //}
-                
+                MyOrders.Add(MyOrder);
+                await OpenOrder(MyOrder);
             }
             else
             {
                 // If the order name field is empty, show this popup
                 AToastToYou("Du mangler at indtaste ordre navn.");
             }
+        }
+
+        [RelayCommand]
+        async Task OpenOrder(Order o)
+        {
+            await Shell.Current.GoToAsync($"{nameof(OrdreDetailsPage)}?", new Dictionary<string, object> { { "ThisOrder", o } });
         }
 
         // Dynamisk "Toast" (popup) function
@@ -85,5 +82,7 @@ namespace MenuKortV1.ViewModel
             var yourToast = Toast.Make(toastText, ToastDuration.Short, 14).Show(cts.Token);
             return yourToast;
         }
+
+
     }
 }

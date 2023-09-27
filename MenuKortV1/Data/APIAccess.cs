@@ -14,7 +14,7 @@ namespace MenuKortV1.Data
         static readonly string ApiBaseUrl = "http://10.130.54.74:2000";
 
         //key string
-        static readonly string Key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJDVl9BZG1pbiIsIm5iZiI6MTY5NTcxODUyMSwiZXhwIjoxNjk1ODA0OTIxLCJpYXQiOjE2OTU3MTg1MjF9.d8aAnxU5nZNj717X-IzDfkXP7q9a27I1NamPMdfcsko";
+        static readonly string Key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJDVl9BZG1pbiIsIm5iZiI6MTY5NTczMTE1MCwiZXhwIjoxNjk1ODE3NTUwLCJpYXQiOjE2OTU3MzExNTB9.pv5lMjckC_yIXpYagm5p2fA-0li88geqxZdqNKkGl3g";
 
         // Define API token
         private static readonly string AuthorizationToken = Key;
@@ -28,8 +28,11 @@ namespace MenuKortV1.Data
         // Set up the http connection to the API
         static APIAccess()
         {
-            Client.DefaultRequestHeaders.Add("Authorization", AuthorizationToken);
-            Client.DefaultRequestHeaders.Add("Accept", "application/json");
+            Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AuthorizationToken);
+            Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            //Client.DefaultRequestHeaders.Add("Accept", "application/json");
+            Client.BaseAddress = new Uri(ApiBaseUrl);
+
 
             serializerOptions = new JsonSerializerOptions
             {
@@ -39,13 +42,14 @@ namespace MenuKortV1.Data
         }
 
         // http response
-        static HttpResponseMessage APIResponse;
+        //static HttpResponseMessage APIResponse;
 
         // Get json string and deserialize it
         public static async Task<Menu> GetMenu()
         {
             try
             {
+                HttpResponseMessage APIResponse = new HttpResponseMessage();
                 APIResponse = await Client.GetAsync($"{ApiBaseUrl}/api/menu");
                 APIResponse.EnsureSuccessStatusCode();
                 string responseBody = await APIResponse.Content.ReadAsStringAsync();
@@ -58,31 +62,24 @@ namespace MenuKortV1.Data
             }
         }
 
-        // Serialise
-        public static async Task<string> OrderPoster(Order o)
+        // Post order
+        public static async Task<bool> OrderPoster(Order o)
         {
             try
             {
                 string json = System.Text.Json.JsonSerializer.Serialize<Order>(o, serializerOptions);
-
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage APIResponse = new HttpResponseMessage();
+                APIResponse = await Client.PostAsync($"{ApiBaseUrl}/api/order", content);
+                APIResponse.EnsureSuccessStatusCode();
+                //string bing = Client.DefaultRequestHeaders.ToString();
+                return true;
 
-                APIResponse = await Client.PostAsync($"{ApiBaseUrl}/api/order/all", content);
-
-                return ":3";
             }
-            catch (Exception ex)
+            catch
             {
-                return ex.ToString();
+                return false;
             }
-
-            //var msg = new HttpRequestMessage(HttpMethod.Post, $"{ApiBaseUrl}/api/orders");
-            //msg.Content = JsonContent.Create<Order>(o);
-            //var response = await Client.SendAsync(msg);
-            //response.EnsureSuccessStatusCode();
-            //var itemJson = await response.Content.ReadAsStringAsync();
-            //var insertedOrder = System.Text.Json.JsonSerializer.Deserialize<Order>(itemJson);
-            //return insertedOrder;
         }
     }
 }
