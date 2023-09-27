@@ -20,6 +20,18 @@
                 />
 
             <Label Text=""/>
+
+            <CollectionView ItemsSource="{Binding MyOrders}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Order">
+                        <Button
+                            Text="{Binding Name}"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:OrdrePageViewModel}}, Path=OpenOrderCommand}"
+                            CommandParameter="{Binding .}"
+                            />
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
