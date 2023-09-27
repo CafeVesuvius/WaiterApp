@@ -1,50 +1,151 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:MenuKortV1.Model"
+             xmlns:model="clr-namespace:MenuKortV1.Model"
              xmlns:vm="clr-namespace:MenuKortV1.ViewModel"
              x:DataType="vm:MainViewModel"
-             x:Class="MenuKortV1.MainPage">
+             x:Class="MenuKortV1.MainPage"
+             Title="{Binding PageTitle}"
+             >
 
     <ScrollView>
         <VerticalStackLayout VerticalOptions="Start">
 
-            <Button
-                Text="Hent menulisten"
-                CornerRadius="0"
-                FontSize="20"
-                BackgroundColor="slategrey"
-                Command="{Binding RefreshCommand}"/>
-
-            <Label
-                Padding="10"
-                FontSize="20"
-                Text="Vælg et menu fra listen:"
-                IsVisible="{Binding ShowTitle}"
+            <Entry
+                Text="{Binding OrderName}"
+                Placeholder="Navn eller bord nr."
+                IsEnabled="{Binding EntryEnablerDisabler}"
+                IsVisible="{Binding ShowOrderCreationMenu}"
                 />
 
-            <CollectionView ItemsSource="{Binding Menus}">
+            <Button 
+                Text="Create Order"
+                Command="{Binding OpenNewOrderCommand}"
+                IsEnabled="{Binding ShowOrderCreationMenu}"
+                IsVisible="{Binding ShowOrderCreationMenu}"
+                />
+
+            <Grid
+                IsVisible="{Binding ShowOrderLinesManager}"
+                IsEnabled="{Binding ShowOrderLinesManager}"
+                >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Label
+                    Text="Varer:"
+                    Margin="5"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    />
+
+                <Button
+                    Grid.Column="1"
+                    Text="Tilføj"
+                    BackgroundColor="Green"
+                    CornerRadius="0"
+                    Command="{Binding OpenMenuListCommand}"
+                    />
+            </Grid>
+
+
+            <CollectionView ItemsSource="{Binding OrderLines}"
+                            IsVisible="{Binding ShowOrderLinesManager}"
+                            IsEnabled="{Binding ShowOrderLinesManager}"
+                            >
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Menu">
+                    <DataTemplate x:DataType="model:MenuItem">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
                                 <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="45"/>
                             </Grid.ColumnDefinitions>
-                            <Button 
+
+                            <Label
                                 Text="{Binding Name}"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=OpenMenuCommand}"
-                                CommandParameter="{Binding .}"
-                                Margin="1"
+                                Margin="5"
+                                FontSize="17"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                />
+
+                            <Label
+                                Grid.Column="1"
+                                Margin="5"
+                                FontSize="17"
+                                Text="{Binding UnitPrice}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                />
+
+                            <Button
+                                Grid.Column="2"
+                                Text="X"
                                 FontSize="20"
-                                CornerRadius="0"/>
+                                HeightRequest="45"
+                                WidthRequest="45"
+                                BackgroundColor="Brown"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=RemoveThisItemFromOrderCommand}"
+                                CommandParameter="{Binding .}"
+                                HorizontalOptions="End"
+                                CornerRadius="0"
+                                />
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
+            <Button
+                Text="Nulstil"
+                CornerRadius="0"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=ResetOrderCommand}"
+                CommandParameter="{Binding OrderLines}"
+                VerticalOptions="End"
+                FontSize="17"
+                IsVisible="{Binding ShowOrderLinesManager}"
+                IsEnabled="{Binding ShowOrderLinesManager}"
+                />
+
+            <Label
+                Text="Noter til ordre:"
+                Margin="5"
+                FontSize="20"
+                FontAttributes="Bold"
+                IsVisible="{Binding ShowOrderLinesManager}"
+                IsEnabled="{Binding ShowOrderLinesManager}"
+                />
+
+            <Editor
+                Text="{Binding ThisEditor.Text}"
+                AutoSize="TextChanges"
+                IsVisible="{Binding ShowOrderLinesManager}"
+                IsEnabled="{Binding ShowOrderLinesManager}"
+                />
+
+            <Button
+                FontSize="17"
+                Text="Send ordre"
+                CornerRadius="0"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=SendOrdreCommand}"
+                CommandParameter="{Binding ThisEditor}"
+                IsVisible="{Binding ShowOrderLinesManager}"
+                IsEnabled="{Binding ShowOrderLinesManager}"
+                />
+
+            <!--<Label
+                Text="{Binding Note}"
+                />-->
+
         </VerticalStackLayout>
     </ScrollView>
+
 </ContentPage>
