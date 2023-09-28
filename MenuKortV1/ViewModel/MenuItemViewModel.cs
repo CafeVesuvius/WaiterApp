@@ -1,8 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using MenuKortV1.Data;
 using MenuKortV1.Model;
-using MenuKortV1.View;
 using System.Collections.ObjectModel;
 using MenuItem = MenuKortV1.Model.MenuItem;
 
@@ -32,17 +30,18 @@ namespace MenuKortV1.ViewModel
         async Task AddItem(MenuItem mi)
         {
             // Add items to the collection
-
-            if(MyOrder is not null)
+            if (OrderLines.Contains(mi))
             {
-                OrderLines.Add(mi);
-
-                await Shell.Current.GoToAsync($"//{nameof(MainPage)}?", new Dictionary<string, object> { { "OrderLines", OrderLines } });
+                var existingItem = OrderLines.Where(x => x.MenuID == mi.MenuID).FirstOrDefault();
+                existingItem.Quantity += 1;
             }
             else
             {
-                CustomCommands.AToastToYou("Du skal opret ordre først.");
+                mi.Quantity = 1;
+                OrderLines.Add(mi);
             }
+           
+            await Shell.Current.GoToAsync($"//{nameof(MainPage)}?", new Dictionary<string, object> { { "OrderLines", OrderLines } });
         }
     }
 }

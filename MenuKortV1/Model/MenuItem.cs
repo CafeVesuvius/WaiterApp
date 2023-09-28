@@ -1,8 +1,9 @@
-﻿using Newtonsoft.Json;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using Newtonsoft.Json;
 
 namespace MenuKortV1.Model
 {
-    public class MenuItem
+    public partial class MenuItem : ObservableObject
     {
         [JsonProperty("id")]
         public int Id { get; set; }
@@ -24,5 +25,11 @@ namespace MenuKortV1.Model
 
         [JsonProperty("menuId")]
         public int MenuID { get; set; }
+
+        [ObservableProperty]
+        public byte quantity;
+
+        [ObservableProperty]
+        public string detail;
     }
 }

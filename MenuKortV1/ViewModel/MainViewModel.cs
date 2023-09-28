@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MenuKortV1.Data;
 using MenuKortV1.Model;
@@ -12,17 +10,9 @@ using ObservableObject = CommunityToolkit.Mvvm.ComponentModel.ObservableObject;
 namespace MenuKortV1.ViewModel
 {
     [QueryProperty("OrderLines", "OrderLines")]
+
     public partial class MainViewModel : ObservableObject
     {
-        //
-        public MainViewModel()
-        {
-        }
-
-        // Define OP for a dymanic page title.
-        [ObservableProperty]
-        private string pageTitle = "Ordre";
-
         // Define OP string for storing the order name
         [ObservableProperty]
         private string orderName;
@@ -51,9 +41,7 @@ namespace MenuKortV1.ViewModel
         [RelayCommand]
         async Task OpenNewOrder()
         {
-            // Soft Keyboard Showe/Hide Trick
-            EntryEnablerDisabler = false;
-            EntryEnablerDisabler = true;
+            SoftKeyboardShowerHider();
 
             // Check if the order name field is not empty
             if (!string.IsNullOrEmpty(OrderName))
@@ -70,13 +58,11 @@ namespace MenuKortV1.ViewModel
                 ShowOrderLinesManager = true;
                 ShowOrderCreationMenu = false;
 
-                PageTitle = MyOrder.Name;
-
                 var orderPosterResponse = await APIAccess.OrderPoster(MyOrder);
 
                 if (!orderPosterResponse)
                 {
-                    CustomCommands.AToastToYou("GO FUK YOURSELFFF!");
+                    CustomCommands.AToastToYou("ERROR: Ordre kan ikke opretes.");
                 }
                 else
                 {
@@ -87,7 +73,7 @@ namespace MenuKortV1.ViewModel
                     }
                     else
                     {
-                        CustomCommands.AToastToYou("Error finding order");
+                        CustomCommands.AToastToYou("ERROR: Ordre ID ikke findes");
                     }
                 }
             }
@@ -101,11 +87,9 @@ namespace MenuKortV1.ViewModel
         [RelayCommand]
         async Task OpenMenuList()
         {
+            SoftKeyboardShowerHider();
             await Shell.Current.GoToAsync($"{nameof(MenusPage)}?", new Dictionary<string, object> { { "MyOrder", MyOrder }, { "OrderLines", OrderLines } });
         }
-
-        // Define editor/text field for order notes
-        public Editor ThisEditor { get; set; } = new Editor();
 
         // Define a command, which clears an order
         [RelayCommand]
@@ -130,14 +114,40 @@ namespace MenuKortV1.ViewModel
                 OrderLine ol = new OrderLine
                 {
                     Id = 0,
-                    Quantity = 1,
-                    Detail = ThisEditor.Text,
+                    Quantity = mi.Quantity,
+                    Detail = mi.Detail,
                     MenuItemID = mi.Id,
-                    OrderID = MyOrder.Id,
+                    OrderID = MyOrder.Id
                 };
                 
                 await APIAccess.OrderLinePoster(ol);
             }
+        }
+
+        [RelayCommand]
+        void IncreaseMenuItemQuantity(MenuItem mi)
+        {
+            mi.Quantity += 1;
+        }
+
+        [RelayCommand]
+        void DecreaseMenuItemQuantity(MenuItem mi)
+        {
+            if(mi.Quantity == 1)
+            {
+                OrderLines.Remove(mi);
+            }
+            else if(mi.Quantity > 0 && mi.Quantity != 1)
+            {
+                mi.Quantity -= 1;
+            }
+        }
+
+        void SoftKeyboardShowerHider()
+        {
+            // Soft Keyboard Show/Hide Trick
+            EntryEnablerDisabler = false;
+            EntryEnablerDisabler = true;
         }
     }
 }
