@@ -49,7 +49,7 @@ namespace MenuKortV1.ViewModel
 
         // Function to open new order
         [RelayCommand]
-        void OpenNewOrder()
+        async Task OpenNewOrder()
         {
             // Soft Keyboard Showe/Hide Trick
             EntryEnablerDisabler = false;
@@ -57,7 +57,6 @@ namespace MenuKortV1.ViewModel
 
             // Check if the order name field is not empty
             if (!string.IsNullOrEmpty(OrderName))
-
             {
                 // If the order name isn't empty, create the order
                 MyOrder = new Order()
@@ -72,11 +71,30 @@ namespace MenuKortV1.ViewModel
                 ShowOrderCreationMenu = false;
 
                 PageTitle = MyOrder.Name;
+
+                var orderPosterResponse = await APIAccess.OrderPoster(MyOrder);
+
+                if (!orderPosterResponse)
+                {
+                    CustomCommands.AToastToYou("GO FUK YOURSELFFF!");
+                }
+                else
+                {
+                    var idYoinker = await APIAccess.GetOrderId(MyOrder);
+                    if (idYoinker != 0)
+                    {
+                        MyOrder.Id = idYoinker;
+                    }
+                    else
+                    {
+                        CustomCommands.AToastToYou("Error finding order");
+                    }
+                }
             }
             else
             {
                 // If the order name field is empty, show this popup
-                AToastToYou("Du mangler at indtaste ordre navn.");
+                CustomCommands.AToastToYou("Du mangler at indtaste ordre navn.");
             }
         }
 
@@ -85,10 +103,6 @@ namespace MenuKortV1.ViewModel
         {
             await Shell.Current.GoToAsync($"{nameof(MenusPage)}?", new Dictionary<string, object> { { "MyOrder", MyOrder }, { "OrderLines", OrderLines } });
         }
-
-        // Define a string variable to store notes for the order
-        [ObservableProperty]
-        string note = "";
 
         // Define editor/text field for order notes
         public Editor ThisEditor { get; set; } = new Editor();
@@ -111,45 +125,19 @@ namespace MenuKortV1.ViewModel
         [RelayCommand]
         async Task SendOrdre()
         {
-            //Note = ThisEditor.Text;
-
-            //foreach (MenuItem mi in Order)
-            //{
-            //    OrderLine ol = new OrderLine
-            //    {
-            //        Id = MyOrder.OrderLines.Count + 1,
-            //        Quantity = 1,
-            //        Detail = ThisEditor.Text,
-            //        MenuItemID = mi.Id
-            //    };
-
-            //    MyOrder.OrderLines.Add(ol);
-            //}
-
-            //Post order to API & get response
-            //var orderPosterResponse = await APIAccess.OrderPoster(MyOrder);
-
-            //if (orderPosterResponse)
-            //{
-            //    Order.Clear();
-            //    Order = null;
-            //    MyOrder = null;
-            //    await Shell.Current.GoToAsync(nameof(OrdrePage));
-            //}
-            //else
-            //{
-            //    MainViewModel.AToastToYou("ERROR");
-            //}
-
+            foreach (MenuItem mi in OrderLines)
+            {
+                OrderLine ol = new OrderLine
+                {
+                    Id = 0,
+                    Quantity = 1,
+                    Detail = ThisEditor.Text,
+                    MenuItemID = mi.Id,
+                    OrderID = MyOrder.Id,
+                };
+                
+                await APIAccess.OrderLinePoster(ol);
+            }
         }
-
-        // Dynamisk "Toast" (popup) function
-        public static Task AToastToYou(string toastText)
-        {
-            CancellationTokenSource cts = new CancellationTokenSource();
-            var yourToast = Toast.Make(toastText, ToastDuration.Short, 14).Show(cts.Token);
-            return yourToast;
-        }
-
     }
 }

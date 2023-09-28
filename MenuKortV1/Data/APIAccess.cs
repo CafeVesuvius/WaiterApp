@@ -1,10 +1,13 @@
 ﻿using MenuKortV1.Model;
 using Microsoft.Maui.Controls.PlatformConfiguration;
 using Newtonsoft.Json;
+using System.Collections;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
+using System.Collections;
+using System.Globalization;
 
 namespace MenuKortV1.Data
 {
@@ -14,7 +17,7 @@ namespace MenuKortV1.Data
         static readonly string ApiBaseUrl = "http://10.130.54.74:2000";
 
         //key string
-        static readonly string Key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJDVl9BZG1pbiIsIm5iZiI6MTY5NTczMTE1MCwiZXhwIjoxNjk1ODE3NTUwLCJpYXQiOjE2OTU3MzExNTB9.pv5lMjckC_yIXpYagm5p2fA-0li88geqxZdqNKkGl3g";
+        static readonly string Key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJDVl9BZG1pbiIsIm5iZiI6MTY5NTg4MDU1NywiZXhwIjoxNjk1OTY2OTU3LCJpYXQiOjE2OTU4ODA1NTd9.Epb9D5TfEj5oojiRdGBddqzS4KGiJqkPM1l1SWji6eE";
 
         // Define API token
         private static readonly string AuthorizationToken = Key;
@@ -33,7 +36,6 @@ namespace MenuKortV1.Data
             //Client.DefaultRequestHeaders.Add("Accept", "application/json");
             Client.BaseAddress = new Uri(ApiBaseUrl);
 
-
             serializerOptions = new JsonSerializerOptions
             {
                 PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
@@ -41,10 +43,7 @@ namespace MenuKortV1.Data
             };
         }
 
-        // http response
-        //static HttpResponseMessage APIResponse;
-
-        // Get json string and deserialize it
+        // Get menu list
         public static async Task<Menu> GetMenu()
         {
             try
@@ -62,6 +61,29 @@ namespace MenuKortV1.Data
             }
         }
 
+        // Get the current order id
+        public static async Task<int> GetOrderId(Order o)
+        {
+            HttpResponseMessage APIResponse = new HttpResponseMessage();
+            APIResponse = await Client.GetAsync($"{ApiBaseUrl}/api/order/incomplete");
+            APIResponse.EnsureSuccessStatusCode();
+            string responseBody = await APIResponse.Content.ReadAsStringAsync();
+
+            List<Order> allOrders = JsonConvert.DeserializeObject<List<Order>>(responseBody);
+
+            int idCatcher = 0;
+
+            foreach ( Order order in allOrders )
+            {
+                if(order.Name == o.Name)
+                {
+                    idCatcher = order.Id;
+                    break;
+                }
+            }
+            return idCatcher;
+        }
+
         // Post order
         public static async Task<bool> OrderPoster(Order o)
         {
@@ -72,13 +94,32 @@ namespace MenuKortV1.Data
                 HttpResponseMessage APIResponse = new HttpResponseMessage();
                 APIResponse = await Client.PostAsync($"{ApiBaseUrl}/api/order", content);
                 APIResponse.EnsureSuccessStatusCode();
-                //string bing = Client.DefaultRequestHeaders.ToString();
                 return true;
 
             }
             catch
             {
                 return false;
+            }
+        }
+
+        // Post order lines
+        public static async Task<string> OrderLinePoster(OrderLine ol) 
+        {
+            try
+            {
+                string json = System.Text.Json.JsonSerializer.Serialize<OrderLine>(ol);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage APIResponse = new HttpResponseMessage();
+                APIResponse = await Client.PostAsync($"{ApiBaseUrl}/api/order/orderLine", content);
+                APIResponse.EnsureSuccessStatusCode();
+                string str = APIResponse.ToString();
+                return str;
+
+            }
+            catch (Exception ex)
+            {
+                return ex.ToString();
             }
         }
     }
