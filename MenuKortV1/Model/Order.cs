@@ -9,8 +9,8 @@ namespace MenuKortV1.Model
 {
     public class Order
     {
-        //[JsonProperty("id")]
-        //public int Id { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; } = null!;
@@ -22,6 +22,6 @@ namespace MenuKortV1.Model
         public bool IsCompleted { get; set; }
 
         [JsonProperty("orderLines")]
-        public virtual ICollection<OrderLine> OrderLines { get; set; } = new List<OrderLine>();
+        public virtual List<OrderLine> OrderLines { get; set; } = new List<OrderLine>();
     }
 }

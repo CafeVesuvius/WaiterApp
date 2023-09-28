@@ -53,7 +53,6 @@
                     />
             </Grid>
 
-
             <CollectionView ItemsSource="{Binding OrderLines}"
                             IsVisible="{Binding ShowOrderLinesManager}"
                             IsEnabled="{Binding ShowOrderLinesManager}"
@@ -140,11 +139,6 @@
                 IsVisible="{Binding ShowOrderLinesManager}"
                 IsEnabled="{Binding ShowOrderLinesManager}"
                 />
-
-            <!--<Label
-                Text="{Binding Note}"
-                />-->
-
         </VerticalStackLayout>
     </ScrollView>
 

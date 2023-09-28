@@ -26,8 +26,6 @@ namespace MenuKortV1
             builder.Services.AddTransient<MenuItemViewModel>();
             builder.Services.AddSingleton<MenusViewModel>();
 
-
-
 #if DEBUG
             builder.Logging.AddDebug();
 #endif
