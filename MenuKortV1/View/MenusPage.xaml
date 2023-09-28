@@ -12,7 +12,6 @@
 
             <Button
                 Text="Genfrisk"
-                CornerRadius="0"
                 FontSize="20"
                 BackgroundColor="slategrey"
                 Command="{Binding RefreshCommand}"/>
@@ -40,7 +39,7 @@
                                 CommandParameter="{Binding .}"
                                 Margin="1"
                                 FontSize="20"
-                                CornerRadius="0"/>
+                                />
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
