@@ -1,13 +1,8 @@
 ﻿using MenuKortV1.Model;
-using Microsoft.Maui.Controls.PlatformConfiguration;
 using Newtonsoft.Json;
-using System.Collections;
 using System.Net.Http.Headers;
-using System.Net.Http.Json;
 using System.Text;
 using System.Text.Json;
-using System.Collections;
-using System.Globalization;
 
 namespace MenuKortV1.Data
 {
@@ -95,7 +90,6 @@ namespace MenuKortV1.Data
                 APIResponse = await Client.PostAsync($"{ApiBaseUrl}/api/order", content);
                 APIResponse.EnsureSuccessStatusCode();
                 return true;
-
             }
             catch
             {
