@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Maui.Alerts;
-using CommunityToolkit.Maui.Core;
-using CommunityToolkit.Mvvm.ComponentModel;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MenuKortV1.Data;
 using MenuKortV1.Model;
@@ -57,7 +55,7 @@ namespace MenuKortV1.ViewModel
                 Menus.Clear();
 
                 // Only add active menus to the menu list
-                if (!menus.Active)
+                if (menus.Active)
                 {
                     // Remove inactive menu items from the menu
                     foreach (var menuItem in menus.Items)
