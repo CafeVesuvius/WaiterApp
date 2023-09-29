@@ -6,15 +6,17 @@
              x:DataType="vm:MenuItemViewModel"
              x:Class="MenuKortV1.View.MenuItemPage"
              Title="{Binding SelectedMenu.Name}">
-    
+
     <ScrollView>
         <VerticalStackLayout VerticalOptions="Start">
-            <SearchBar 
+
+            <!--<SearchBar
+                x:Name="searchBar"
                 Placeholder="Søge på menu varer"
                 BackgroundColor="#ccc5b9"
-                />
+                />-->
             
-            <CollectionView x:Name="searchResults" ItemsSource="{Binding SelectedMenu.Items}">
+            <CollectionView ItemsSource="{Binding SelectedMenu.Items}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="{x:Type models:MenuItem}">
                         <Grid>

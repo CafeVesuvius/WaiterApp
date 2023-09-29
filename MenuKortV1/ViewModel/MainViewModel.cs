@@ -93,9 +93,17 @@ namespace MenuKortV1.ViewModel
 
         // Define a command, which clears an order
         [RelayCommand]
-        void ResetOrder()
+        async void ResetOrder()
         {
-            OrderLines.Clear();
+            var response = await APIAccess.OrderDeleter(MyOrder);
+            if(response)
+            {
+                OrderLines.Clear();
+                MyOrder = null;
+                OrderName = string.Empty;
+                ShowOrderLinesManager = false;
+                ShowOrderCreationMenu = true;
+            }
         }
 
         // Define a command, which removes a specific item from an order

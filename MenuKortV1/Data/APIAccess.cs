@@ -12,7 +12,7 @@ namespace MenuKortV1.Data
         static readonly string ApiBaseUrl = "http://10.130.54.74:2000";
 
         //key string
-        static readonly string Key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJDVl9BZG1pbiIsIm5iZiI6MTY5NTg4MDU1NywiZXhwIjoxNjk1OTY2OTU3LCJpYXQiOjE2OTU4ODA1NTd9.Epb9D5TfEj5oojiRdGBddqzS4KGiJqkPM1l1SWji6eE";
+        static readonly string Key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJDVl9BZG1pbiIsIm5iZiI6MTY5NTk2NzIwNSwiZXhwIjoxNjk2MDUzNjA1LCJpYXQiOjE2OTU5NjcyMDV9.LQr2wGkOpxhwI3CUleunPPq-NlOhBEXdvgh2YsSxvR0";
 
         // Define API token
         private static readonly string AuthorizationToken = Key;
@@ -88,6 +88,24 @@ namespace MenuKortV1.Data
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage APIResponse = new HttpResponseMessage();
                 APIResponse = await Client.PostAsync($"{ApiBaseUrl}/api/order", content);
+                APIResponse.EnsureSuccessStatusCode();
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        // Delete empty order
+        public static async Task<bool> OrderDeleter(Order o)
+        {
+            try
+            {
+                //string json = System.Text.Json.JsonSerializer.Serialize<Order>(o, serializerOptions);
+                //StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage APIResponse = new HttpResponseMessage();
+                APIResponse = await Client.DeleteAsync($"{ApiBaseUrl}/api/order/{o.Id}");
                 APIResponse.EnsureSuccessStatusCode();
                 return true;
             }
