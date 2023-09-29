@@ -38,7 +38,7 @@ namespace MenuKortV1.Data
             };
         }
 
-        // Get menu list
+        // Get request for "api/menu"
         public static async Task<Menu> GetMenu()
         {
             try
@@ -56,7 +56,7 @@ namespace MenuKortV1.Data
             }
         }
 
-        // Get the current order id
+        // Get request for the current order via id
         public static async Task<int> GetOrderId(Order o)
         {
             HttpResponseMessage APIResponse = new HttpResponseMessage();
@@ -79,7 +79,7 @@ namespace MenuKortV1.Data
             return idCatcher;
         }
 
-        // Post order
+        // Post request for "api/order"
         public static async Task<bool> OrderPoster(Order o)
         {
             try
@@ -97,13 +97,11 @@ namespace MenuKortV1.Data
             }
         }
 
-        // Delete empty order
+        // Delete request for "api/order/{id}"
         public static async Task<bool> OrderDeleter(Order o)
         {
             try
             {
-                //string json = System.Text.Json.JsonSerializer.Serialize<Order>(o, serializerOptions);
-                //StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage APIResponse = new HttpResponseMessage();
                 APIResponse = await Client.DeleteAsync($"{ApiBaseUrl}/api/order/{o.Id}");
                 APIResponse.EnsureSuccessStatusCode();
@@ -115,7 +113,7 @@ namespace MenuKortV1.Data
             }
         }
 
-        // Post order lines
+        // Post request for "api/order/orderLine"
         public static async Task<string> OrderLinePoster(OrderLine ol) 
         {
             try

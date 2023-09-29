@@ -19,6 +19,7 @@ namespace MenuKortV1.ViewModel
 
         public MenusViewModel() 
         {
+            // Load all menu data on routing
             Refresh();
         }
 

@@ -29,11 +29,11 @@ namespace MenuKortV1.ViewModel
         [ObservableProperty]
         ObservableCollection<MenuItem> orderLines = new ObservableCollection<MenuItem>();
 
-        //
+        // Dynamic page content for order details. Shown when an order is created.
         [ObservableProperty]
         bool showOrderLinesManager = false;
 
-        //
+        // Dynamic page content to show order creation menu. Hide after creating an order.
         [ObservableProperty]
         bool showOrderCreationMenu = true;
 
@@ -84,6 +84,7 @@ namespace MenuKortV1.ViewModel
             }
         }
 
+        // Navigate to menu list page
         [RelayCommand]
         async Task OpenMenuList()
         {
@@ -91,7 +92,7 @@ namespace MenuKortV1.ViewModel
             await Shell.Current.GoToAsync($"{nameof(MenusPage)}?", new Dictionary<string, object> { { "MyOrder", MyOrder }, { "OrderLines", OrderLines } });
         }
 
-        // Define a command, which clears an order
+        // Clear the whole order and delete it from the API
         [RelayCommand]
         async void ResetOrder()
         {
@@ -106,14 +107,7 @@ namespace MenuKortV1.ViewModel
             }
         }
 
-        // Define a command, which removes a specific item from an order
-        [RelayCommand]
-        void RemoveThisItemFromOrder(MenuItem mi)
-        {
-            OrderLines.Remove(mi);
-        }
-
-        // Send the order to API/kitchen
+        // Post the order to API
         [RelayCommand]
         async Task SendOrdre()
         {
@@ -131,6 +125,7 @@ namespace MenuKortV1.ViewModel
                 await APIAccess.OrderLinePoster(ol);
             }
 
+            // Clear order and order lines
             OrderLines.Clear();
             MyOrder = null;
             OrderName = string.Empty;
@@ -138,17 +133,20 @@ namespace MenuKortV1.ViewModel
             ShowOrderCreationMenu = true;
         }
 
+        // Increase quantity of a menu item
         [RelayCommand]
         void IncreaseMenuItemQuantity(MenuItem mi)
         {
             mi.Quantity += 1;
         }
 
+        // Decrease quantity of a menu item
         [RelayCommand]
         void DecreaseMenuItemQuantity(MenuItem mi)
         {
             if(mi.Quantity == 1)
             {
+                // If the quantity reaches 0, automatically remove the item from the list
                 OrderLines.Remove(mi);
             }
             else if(mi.Quantity > 0 && mi.Quantity != 1)
@@ -157,6 +155,7 @@ namespace MenuKortV1.ViewModel
             }
         }
 
+        // Trick to hide soft keyboard
         void SoftKeyboardShowerHider()
         {
             // Soft Keyboard Show/Hide Trick

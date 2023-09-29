@@ -9,13 +9,6 @@
 
     <ScrollView>
         <VerticalStackLayout VerticalOptions="Start">
-
-            <!--<SearchBar
-                x:Name="searchBar"
-                Placeholder="Søge på menu varer"
-                BackgroundColor="#ccc5b9"
-                />-->
-            
             <CollectionView ItemsSource="{Binding SelectedMenu.Items}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="{x:Type models:MenuItem}">
