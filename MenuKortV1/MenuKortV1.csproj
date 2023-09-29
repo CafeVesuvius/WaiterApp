@@ -60,7 +60,7 @@
 	  <MauiXaml Update="View\MenuItemPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\OrdrePage.xaml">
+	  <MauiXaml Update="View\MenusPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

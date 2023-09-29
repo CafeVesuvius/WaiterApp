@@ -1,30 +1,47 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using MenuKortV1.Model;
 using CommunityToolkit.Mvvm.Input;
-using MenuKortV1.View;
+using MenuKortV1.Model;
 using System.Collections.ObjectModel;
-using MenuKortV1.ViewModel;
+using MenuItem = MenuKortV1.Model.MenuItem;
 
 namespace MenuKortV1.ViewModel
 {
-    [QueryProperty("SelectedMenu", "Menu")] // Hent parameterne, der bliver medsendt hos "OpenMenu" commandoen fra 'MainViewModel'
+    // Get parameters, which are sent via the "OpenMenu" command from 'MainViewModel'
+    [QueryProperty("SelectedMenu", "Menu")]
+    [QueryProperty("MyOrder", "MyOrder")]
+    [QueryProperty("OrderLines", "OrderLines")]
 
     public partial class MenuItemViewModel : ObservableObject
     {
-
-        public MenuItemViewModel() 
-        {
-        }
-
+        // Define the query property, which stores passed parameters
         [ObservableProperty]
         Menu selectedMenu;
 
-        public void AddItem(Model.MenuItem mi)
+        // Define "Order" object
+        [ObservableProperty]
+        Order myOrder;
+
+        // Define observable collection for the current order's order lines
+        [ObservableProperty]
+        ObservableCollection<MenuItem> orderLines = new ObservableCollection<MenuItem>();
+
+        //Add menu items to an order
+        [RelayCommand]
+        async Task AddItem(MenuItem mi)
         {
-            //Orders.Add(new ViewModel.OrdreViewModel { OrderName = "test", OrderItems = mi);
-            //await Shell.Current.GoToAsync(nameof(OrdrePage), new Dictionary<string, object> { { "NewItem", mi } });
+            // Add items to the collection
+            if (OrderLines.Contains(mi))
+            {
+                var existingItem = OrderLines.Where(x => x.MenuID == mi.MenuID).FirstOrDefault();
+                existingItem.Quantity += 1;
+            }
+            else
+            {
+                mi.Quantity = 1;
+                OrderLines.Add(mi);
+            }
+           
+            await Shell.Current.GoToAsync($"//{nameof(MainPage)}?", new Dictionary<string, object> { { "OrderLines", OrderLines } });
         }
     }
 }
-
-//https://stackoverflow.com/questions/16506653/accessing-a-property-in-one-viewmodel-from-another

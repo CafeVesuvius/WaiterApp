@@ -1,45 +1,262 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:models="clr-namespace:MenuKortV1.Model"
+             xmlns:model="clr-namespace:MenuKortV1.Model"
              xmlns:vm="clr-namespace:MenuKortV1.ViewModel"
              x:DataType="vm:MainViewModel"
-             x:Class="MenuKortV1.MainPage">
+             x:Class="MenuKortV1.MainPage"
+             >
 
     <ScrollView>
         <VerticalStackLayout VerticalOptions="Start">
 
-            <Button
-                Text="Refresh"
-                Command="{Binding RefreshCommand}"
+            <Entry
+                Text="{Binding OrderName}"
+                Placeholder="Navn eller bord nr."
+                IsEnabled="{Binding EntryEnablerDisabler}"
+                IsVisible="{Binding ShowOrderCreationMenu}"
                 />
 
-            <Label
-            Padding="10"
-            FontSize="20"
-            Text="Vælg et menu fra listen:" />
+            <Button 
+                Text="Create Order"
+                Command="{Binding OpenNewOrderCommand}"
+                IsEnabled="{Binding ShowOrderCreationMenu}"
+                IsVisible="{Binding ShowOrderCreationMenu}"
+                />
 
-        <CollectionView ItemsSource="{Binding Menus}">
-            <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="models:Menu">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-                            <Button 
-                                Text="{Binding Name}"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=OpenMenuCommand}"
-                                CommandParameter="{Binding .}"
-                                Margin="5"
-                                FontSize="20"
-                                CornerRadius="0"/>
-                        </Grid>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>
+            <Grid
+                IsVisible="{Binding ShowOrderLinesManager}"
+                IsEnabled="{Binding ShowOrderLinesManager}"
+                >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <Grid Margin="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="4*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <BoxView
+                        Grid.ColumnSpan="2"
+                        BackgroundColor="Black"
+                        />
+
+                    <Label
+                        Grid.ColumnSpan="2"
+                        Text="Ordre detalier"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        Padding="10,3,0,3"
+                        />
+
+                    <Frame
+                        Grid.ColumnSpan="2"
+                        Grid.RowSpan="2"
+                        Grid.Row="1"
+                        BorderColor="Black"
+                        />
+
+                    <Label
+                        Grid.Row="1"
+                        Text="Navn:"
+                        FontSize="17"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center"
+                        Padding="10,3,0,3"
+                        />
+
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="2"
+                        Text="{Binding MyOrder.Name}"
+                        FontSize="17"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center"
+                        Padding="10,3,0,3"
+                        />
+
+                    <Label
+                        Grid.Row="2"
+                        Text="Dato:"
+                        FontSize="17"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center"
+                        Padding="10,3,0,3"
+                        />
+
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        Text="{Binding MyOrder.CreatedDate}"
+                        FontSize="17"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center"
+                        Padding="10,3,0,3"
+                        />
+                </Grid>
+
+                <Button
+                    Margin="4"
+                    Grid.Row="1"
+                    Text="Tilføj varer til ordre"
+                    BackgroundColor="Green"
+                    Command="{Binding OpenMenuListCommand}"
+                    FontAttributes="Bold"
+                    />
+
+                <Grid
+                    Margin="4"
+                    Grid.Row="2"
+                    >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <BoxView
+                        Grid.ColumnSpan="2"
+                        BackgroundColor="Black"
+                        />
+
+                    <Label
+                        Grid.ColumnSpan="2"
+                        Text="Varer:"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        FontSize="20"
+                        Padding="10,3,0,3"
+                        />
+
+                    <Frame
+                        Grid.ColumnSpan="2"
+                        Grid.RowSpan="2"
+                        Grid.Row="1"
+                        BorderColor="Black"
+                        />
+
+                    <CollectionView ItemsSource="{Binding OrderLines}" Grid.Row="1">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:MenuItem">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="4*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label
+                                        Text="{Binding Name}"
+                                        Margin="5"
+                                        FontSize="17"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center"
+                                        />
+
+                                    <Button
+                                        Grid.Column="1"
+                                        Text="+"
+                                        FontSize="17"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=IncreaseMenuItemQuantityCommand}"
+                                        CommandParameter="{Binding .}"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center"
+                                        />
+
+                                    <Label
+                                        Grid.Column="2"
+                                        Text="{Binding Quantity}"
+                                        FontSize="17"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center"
+                                        />
+
+                                    <Button
+                                        Grid.Column="3"
+                                        Text="-"
+                                        FontSize="17"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=DecreaseMenuItemQuantityCommand}"
+                                        CommandParameter="{Binding .}"
+                                        />
+
+                                    <Label
+                                        Grid.Column="4"
+                                        Margin="5"
+                                        FontSize="17"
+                                        Text="{Binding UnitPrice}"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center"
+                                        />
+
+                                    <Entry
+                                        x:Name="Detail"
+                                        Grid.Row="1"
+                                        Text="{Binding Detail}"
+                                        Grid.ColumnSpan="5"
+                                        Placeholder="Note"
+                                        />
+
+                                </Grid>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </Grid>
+                <Grid Margin="4" Grid.Row="3">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    
+                    <Button
+                        Text="Nulstil"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=ResetOrderCommand}"
+                        CommandParameter="{Binding OrderLines}"
+                        VerticalOptions="End"
+                        FontSize="17"
+                        IsVisible="{Binding ShowOrderLinesManager}"
+                        IsEnabled="{Binding ShowOrderLinesManager}"
+                        />
+
+                    <Button
+                        Grid.Column="2"
+                        FontSize="17"
+                        Text="Send ordre"
+                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=SendOrdreCommand}"
+                        IsVisible="{Binding ShowOrderLinesManager}"
+                        IsEnabled="{Binding ShowOrderLinesManager}"
+                        />
+                </Grid>
+            </Grid>
+
+
+
+
+            
 
         </VerticalStackLayout>
     </ScrollView>

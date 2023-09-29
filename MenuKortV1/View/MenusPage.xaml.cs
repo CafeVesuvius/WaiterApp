@@ -1,10 +1,10 @@
 using MenuKortV1.ViewModel;
 
 namespace MenuKortV1.View
-{
-	public partial class OrdrePage : ContentPage
+{ 
+	public partial class MenusPage : ContentPage
 	{
-		public OrdrePage(OrdreViewModel vm)
+		public MenusPage(MenusViewModel vm)
 		{
 			InitializeComponent();
 			BindingContext = vm;

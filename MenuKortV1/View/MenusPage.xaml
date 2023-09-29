@@ -3,23 +3,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:models="clr-namespace:MenuKortV1.Model"
              xmlns:vm="clr-namespace:MenuKortV1.ViewModel"
-             x:DataType="vm:OrdreViewModel"
-             x:Class="MenuKortV1.View.OrdrePage"
-             Title="Nuværende ordre">
+             x:DataType="vm:MenusViewModel"
+             x:Class="MenuKortV1.View.MenusPage"
+             Title="MenusPage">
 
     <ScrollView>
         <VerticalStackLayout VerticalOptions="Start">
 
+            <Button
+                Text="Genfrisk"
+                FontSize="20"
+                BackgroundColor="slategrey"
+                Command="{Binding RefreshCommand}"/>
 
             <Label
-                Text="Nuværende ordre:"
-                Margin="5"
+                Padding="10"
                 FontSize="20"
+                Text="Vælg et menu fra listen:"
+                IsVisible="{Binding ShowTitle}"
                 />
 
-            <!--<CollectionView ItemsSource="{Binding OrderItems}">
+            <CollectionView ItemsSource="{Binding Menus}">
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="{x:Type models:MenuItem}">
+                    <DataTemplate x:DataType="models:Menu">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto"/>
@@ -27,17 +33,19 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
-
-                            <Label
-                               Text="{Binding Description}"
-                               Margin="5"
-                               FontSize="20"/>
-
+                            <Button 
+                                Text="{Binding Name}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MenusViewModel}}, Path=OpenMenuCommand}"
+                                CommandParameter="{Binding .}"
+                                Margin="1"
+                                FontSize="20"
+                                />
                         </Grid>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-            </CollectionView>-->
-            
+            </CollectionView>
+
         </VerticalStackLayout>
     </ScrollView>
+    
 </ContentPage>
