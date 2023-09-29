@@ -44,7 +44,7 @@ namespace MenuKortV1.Data
             try
             {
                 HttpResponseMessage APIResponse = new HttpResponseMessage();
-                APIResponse = await Client.GetAsync($"{ApiBaseUrl}/api/menu");
+                APIResponse = await Client.GetAsync($"{ApiBaseUrl}/api/menu/active");
                 APIResponse.EnsureSuccessStatusCode();
                 string responseBody = await APIResponse.Content.ReadAsStringAsync();
                 Menu menus = JsonConvert.DeserializeObject<Menu>(responseBody);
