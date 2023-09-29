@@ -233,7 +233,7 @@
                     </Grid.ColumnDefinitions>
                     
                     <Button
-                        Text="Nulstil"
+                        Text="Nulstil ordre"
                         Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=ResetOrderCommand}"
                         CommandParameter="{Binding OrderLines}"
                         VerticalOptions="End"

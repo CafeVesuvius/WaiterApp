@@ -54,18 +54,20 @@ namespace MenuKortV1.ViewModel
                 // Clear the menu list before refreshing it with new data
                 Menus.Clear();
 
-                // Remove inactive menu items from the menu
-                foreach (var menuItem in menus.Items)
+                if (menus.Active)
                 {
-                    if (!menuItem.Active)
+                    // Remove inactive menu items from the menu
+                    foreach (var menuItem in menus.Items)
                     {
-                        menus.Items.Remove(menuItem);
+                        if (!menuItem.Active)
+                        {
+                            menus.Items.Remove(menuItem);
+                        }
                     }
+
+                    // Add the menus
+                    Menus.Add(menus);
                 }
-
-                // Add the menus
-                Menus.Add(menus);
-
                 // Only show "Vælg er menu fra listen:" if there is at least one menu in the list
                 ShowTitle = true;
             }

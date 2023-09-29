@@ -130,6 +130,12 @@ namespace MenuKortV1.ViewModel
                 
                 await APIAccess.OrderLinePoster(ol);
             }
+
+            OrderLines.Clear();
+            MyOrder = null;
+            OrderName = string.Empty;
+            ShowOrderLinesManager = false;
+            ShowOrderCreationMenu = true;
         }
 
         [RelayCommand]
