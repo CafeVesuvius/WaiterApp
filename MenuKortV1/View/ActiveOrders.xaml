@@ -8,10 +8,60 @@
              Title="Ordre til levering">
 
     <ScrollView>
-        <VerticalStackLayout>
+        <VerticalStackLayout VerticalOptions="Start">
             <Button
                 Text="Sync"
+                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ActiveOrdersViewModel}}, Path=RefreshCommand}"
+                CommandParameter="{Binding .}"
+                BackgroundColor="Grey"
                 />
+
+            <Label
+                Text="Ordre til levering:"
+                />
+            
+            <Label
+                Text="{Binding RowCounter}"
+                />
+
+            <CollectionView ItemsSource="{Binding CurrentOrders}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type models:Order}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label 
+                                Text="{Binding Name}"
+                                HorizontalOptions="Start"
+                                VerticalOptions="Center"
+                                />
+                            
+                            <Label 
+                                Grid.Column="1"
+                                Text="{Binding CreatedDate, StringFormat='{0:MMMM dd, yyyy}'}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center"
+                                />
+
+                            <Button 
+                                Grid.Column="2"
+                                Text="X"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ActiveOrdersViewModel}}, Path=RemoveCommand}"
+                                CommandParameter="{Binding .}"
+                                />
+
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
             
         </VerticalStackLayout>
     </ScrollView>

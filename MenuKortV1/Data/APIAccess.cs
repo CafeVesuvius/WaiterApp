@@ -12,7 +12,7 @@ namespace MenuKortV1.Data
         static readonly string ApiBaseUrl = "http://10.130.54.74:2000";
 
         //key string
-        static readonly string Key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJDVl9BZG1pbiIsIm5iZiI6MTY5NTk2NzIwNSwiZXhwIjoxNjk2MDUzNjA1LCJpYXQiOjE2OTU5NjcyMDV9.LQr2wGkOpxhwI3CUleunPPq-NlOhBEXdvgh2YsSxvR0";
+        static readonly string Key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJDVl9BZG1pbiIsIm5iZiI6MTY5NjgzMTcxNSwiZXhwIjoxNjk2OTE4MTE1LCJpYXQiOjE2OTY4MzE3MTV9.NMxbZawiSDFgO7o-Ju4hK5AtVeVbd27FWRb7q39qSRQ";
 
         // Define API token
         private static readonly string AuthorizationToken = Key;

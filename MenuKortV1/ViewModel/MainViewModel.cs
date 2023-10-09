@@ -3,6 +3,7 @@ using CommunityToolkit.Mvvm.Input;
 using MenuKortV1.Data;
 using MenuKortV1.Model;
 using MenuKortV1.View;
+using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using MenuItem = MenuKortV1.Model.MenuItem;
 using ObservableObject = CommunityToolkit.Mvvm.ComponentModel.ObservableObject;
@@ -123,6 +124,23 @@ namespace MenuKortV1.ViewModel
                 };
                 
                 await APIAccess.OrderLinePoster(ol);
+            }
+
+            // Save persistent orders
+            string checkPersistentOrderData = Preferences.Get(nameof(App.PersistentOrder), "");
+
+            if (string.IsNullOrWhiteSpace(checkPersistentOrderData))
+            {
+                PersistentOrder po = new PersistentOrder { PersistentOrders = new List<Order> { MyOrder } };
+                string persistentOrderstStr = JsonConvert.SerializeObject(po);
+                Preferences.Set(nameof(App.PersistentOrder), persistentOrderstStr);
+            }
+            else
+            {
+                PersistentOrder currentPO = JsonConvert.DeserializeObject<PersistentOrder>(checkPersistentOrderData);
+                currentPO.PersistentOrders.Add(MyOrder);
+                string persistentOrderstStr = JsonConvert.SerializeObject(currentPO);
+                Preferences.Set(nameof(App.PersistentOrder), persistentOrderstStr);
             }
 
             // Clear order and order lines
