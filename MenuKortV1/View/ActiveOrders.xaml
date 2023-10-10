@@ -16,21 +16,33 @@
                 BackgroundColor="Grey"
                 />
 
-            <Label
-                Text="Ordre til levering:"
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Label
+                    Text="Ordre til levering:"
+                    FontSize="18"
                 />
-            
-            <Label
-                Text="{Binding RowCounter}"
-                />
+
+                <Label
+                    Grid.Column="1"
+                    Text="{Binding RowCounter}"
+                    FontSize="18"
+                    />
+            </Grid>
 
             <CollectionView ItemsSource="{Binding CurrentOrders}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="{x:Type models:Order}">
                         <Grid>
                             <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="3*"/>
