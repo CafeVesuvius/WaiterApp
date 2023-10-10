@@ -13,6 +13,8 @@ namespace MenuKortV1
             Routing.RegisterRoute(nameof(MenuItemPage), typeof(MenuItemPage));
             Routing.RegisterRoute(nameof(MenusPage), typeof(MenusPage));
             Routing.RegisterRoute(nameof(ActiveOrders), typeof(ActiveOrders));
+            Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
+            Routing.RegisterRoute(nameof(LoadingPage), typeof(LoadingPage));
         }
     }
 }
