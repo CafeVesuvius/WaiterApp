@@ -81,7 +81,10 @@ namespace MenuKortV1.ViewModel
             else
             {
                 // If the order name field is empty, show this popup
-                CustomCommands.AToastToYou("Du mangler at indtaste ordre navn.");
+                //CustomCommands.AToastToYou("Du mangler at indtaste ordre navn.");
+
+                await Shell.Current.DisplayAlert("Besked", "Du mangler at indtaste ordre navn.", "OK");
+                
             }
         }
 
