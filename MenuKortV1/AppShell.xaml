@@ -7,7 +7,20 @@
     xmlns:local="clr-namespace:MenuKortV1"
     xmlns:page="clr-namespace:MenuKortV1.View"
     xmlns:views="clr-namespace:MenuKortV1.View"
+    xmlns:vm="clr-namespace:MenuKortV1.ViewModel"
     Shell.FlyoutBehavior="Disabled">
+
+    <ShellContent
+        Title="Loading Screen"
+        ContentTemplate="{DataTemplate views:LoadingPage}"
+        Route="LoadingPage"
+        />
+
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate views:LoginPage}"
+        Route="LoginPage"
+        />
 
     <TabBar>
         <ShellContent
@@ -19,6 +32,7 @@
         <ShellContent
             Title="Aktive Ordre"
             ContentTemplate="{x:DataTemplate views:ActiveOrders}"
-            Route="ActiveOrders"/>
+            Route="ActiveOrders"
+            />
     </TabBar>
 </Shell>
