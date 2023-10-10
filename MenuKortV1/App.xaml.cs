@@ -1,4 +1,5 @@
 ﻿using MenuKortV1.Model;
+using MenuKortV1.ViewModel;
 
 namespace MenuKortV1
 {
@@ -7,6 +8,7 @@ namespace MenuKortV1
         // Define persistent data
         public static UserLoginInfo UserLoginInfo;
         public static PersistentOrder PersistentOrder;
+        public static string Token;
 
         public App()
         { 
