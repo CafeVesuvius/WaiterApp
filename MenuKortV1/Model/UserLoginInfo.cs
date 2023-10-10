@@ -9,10 +9,19 @@ namespace MenuKortV1.Model
 {
     public class UserLoginInfo
     {
-        [JsonProperty("userName")]
-        public string Username { get; set; }
+        //[JsonProperty("userName")]
+        //[JsonProperty("password")]
 
-        [JsonProperty("password")]
+        public string Username { get; set; }
         public string Password { get; set; }
+        public int RoleId { get; set; }
+        public string RoleName { get; set; }
+
+        public enum RoleDetails
+        {
+            Chef,
+            Waiter,
+            Other,
+        }
     }
 }
