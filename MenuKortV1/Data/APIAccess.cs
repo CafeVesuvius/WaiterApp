@@ -11,15 +11,6 @@ namespace MenuKortV1.Data
         // Define a variable to store the API adress
         static readonly string ApiBaseUrl = "http://10.130.54.74:2000";
 
-        //key string
-        //static readonly string Key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJDVl9BZG1pbiIsIm5iZiI6MTY5NjgzMTcxNSwiZXhwIjoxNjk2OTE4MTE1LCJpYXQiOjE2OTY4MzE3MTV9.NMxbZawiSDFgO7o-Ju4hK5AtVeVbd27FWRb7q39qSRQ";
-
-        // Define API token
-        //private static string AuthorizationToken;
-
-        //booly bool
-        //public static bool Authorized = false;
-
         // Define a http client
         static HttpClient Client = new HttpClient();
 
@@ -31,19 +22,10 @@ namespace MenuKortV1.Data
         {
             Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", App.Token);
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //Client.DefaultRequestHeaders.Add("Accept", "application/json");
             Client.BaseAddress = new Uri(ApiBaseUrl);
-
-            
-
-            serializerOptions = new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                WriteIndented = true
-            };
         }
 
-        // Get request for "api/menu"
+        // Get request for "api/menu" endpoint
         public static async Task<Menu> GetMenu()
         {
             try
@@ -89,7 +71,7 @@ namespace MenuKortV1.Data
         {
             try
             {
-                string json = System.Text.Json.JsonSerializer.Serialize<Order>(o, serializerOptions);
+                string json = System.Text.Json.JsonSerializer.Serialize<Order>(o);
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage APIResponse = new HttpResponseMessage();
                 APIResponse = await Client.PostAsync($"{ApiBaseUrl}/api/order", content);
