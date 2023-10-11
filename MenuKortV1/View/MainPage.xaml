@@ -10,20 +10,27 @@
     <ScrollView>
         <VerticalStackLayout VerticalOptions="Start">
 
+            <!-- BEFORE CREATING ORDER -->
+            
             <Entry
                 Text="{Binding OrderName}"
                 Placeholder="Navn eller bord nr."
+                FontSize="20"
                 IsEnabled="{Binding EntryEnablerDisabler}"
                 IsVisible="{Binding ShowOrderCreationMenu}"
                 />
 
             <Button 
-                Text="Create Order"
+                Text="Opret Order"
+                FontSize="20"
                 Command="{Binding OpenNewOrderCommand}"
                 IsEnabled="{Binding ShowOrderCreationMenu}"
                 IsVisible="{Binding ShowOrderCreationMenu}"
                 />
 
+            <!-- ======================= -->
+
+            <!-- AFTER CREATING ORDER -->
             <Grid
                 IsVisible="{Binding ShowOrderLinesManager}"
                 IsEnabled="{Binding ShowOrderLinesManager}"
@@ -38,6 +45,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
+                <!-- "Ordre detalier" section -->
                 <Grid Margin="4">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -101,7 +109,7 @@
                     <Label
                         Grid.Row="2"
                         Grid.Column="2"
-                        Text="{Binding MyOrder.CreatedDate}"
+                        Text="{Binding MyOrder.CreatedDate, StringFormat='{0:dd-MM-yyyy, hh:mm tt}'}"
                         FontSize="17"
                         HorizontalOptions="Start"
                         VerticalOptions="Center"
@@ -109,6 +117,7 @@
                         />
                 </Grid>
 
+                <!-- Button to add items to "Varer:" list -->
                 <Button
                     Margin="4"
                     Grid.Row="1"
@@ -118,9 +127,12 @@
                     FontAttributes="Bold"
                     />
 
+                <!-- "Varer:" list -->
                 <Grid
                     Margin="4"
                     Grid.Row="2"
+                    IsVisible="{Binding ShowItemList}"
+                    IsEnabled="{Binding ShowItemList}"
                     >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
@@ -223,7 +235,15 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
                 </Grid>
-                <Grid Margin="4" Grid.Row="3">
+
+                <!-- Buttons to cancel or send and the order -->
+                <Grid 
+                    Margin="4" 
+                    Grid.Row="3"
+                    IsVisible="{Binding ShowOrderLinesManager}"
+                    IsEnabled="{Binding ShowOrderLinesManager}"
+                    >
+                    
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
@@ -238,19 +258,19 @@
                         CommandParameter="{Binding OrderLines}"
                         VerticalOptions="End"
                         FontSize="17"
-                        IsVisible="{Binding ShowOrderLinesManager}"
-                        IsEnabled="{Binding ShowOrderLinesManager}"
                         />
 
                     <Button
                         Grid.Column="2"
                         FontSize="17"
                         Text="Send ordre"
-                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:MainViewModel}}, Path=SendOrdreCommand}"
-                        IsVisible="{Binding ShowOrderLinesManager}"
-                        IsEnabled="{Binding ShowOrderLinesManager}"
+                        Command="{Binding SendOrdreCommand}"
+                        IsVisible="{Binding ShowItemList}"
+                        IsEnabled="{Binding ShowItemList}"
                         />
                 </Grid>
+                <!-- ======================================= -->
+                
             </Grid>
 
 
