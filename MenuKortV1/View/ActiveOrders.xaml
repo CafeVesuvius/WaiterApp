@@ -11,6 +11,7 @@
         <VerticalStackLayout VerticalOptions="Start">
             <Button
                 Text="Sync"
+                FontSize="20"
                 Command="{Binding Source={RelativeSource AncestorType={x:Type vm:ActiveOrdersViewModel}}, Path=RefreshCommand}"
                 CommandParameter="{Binding .}"
                 BackgroundColor="Grey"
@@ -45,7 +46,7 @@
                                     <RowDefinition Height="Auto"/>
                             </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="3*"/>
+                                <ColumnDefinition Width="2*"/>
                                 <ColumnDefinition Width="3*"/>
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
@@ -58,7 +59,7 @@
                             
                             <Label 
                                 Grid.Column="1"
-                                Text="{Binding CreatedDate, StringFormat='{0:MMMM dd, yyyy}'}"
+                                Text="{Binding CreatedDate, StringFormat='{0:dd MMMM yyyy, hh:mm tt}'}"
                                 HorizontalOptions="Center"
                                 VerticalOptions="Center"
                                 />
