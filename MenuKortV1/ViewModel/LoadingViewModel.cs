@@ -36,7 +36,6 @@ namespace MenuKortV1.ViewModel
 
                 if (jsonToken.ValidTo < DateTime.UtcNow)
                 {
-                    //await CustomCommands.AToastToYou("Token")
                     await Shell.Current.DisplayAlert("User session expired", "Login again to continue", "Ok");
                     await Shell.Current.GoToAsync(nameof(LoginPage));
                 }

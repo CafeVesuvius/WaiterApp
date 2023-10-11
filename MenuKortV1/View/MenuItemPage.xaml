@@ -9,6 +9,7 @@
 
     <ScrollView>
         <VerticalStackLayout VerticalOptions="Start">
+
             <CollectionView ItemsSource="{Binding SelectedMenu.Items}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="{x:Type models:MenuItem}">

@@ -13,6 +13,11 @@ namespace MenuKortV1.ViewModel
 
     public partial class MenuItemViewModel : ObservableObject
     {
+
+        public MenuItemViewModel() 
+        {
+        }
+
         // Define the query property, which stores passed parameters
         [ObservableProperty]
         Menu selectedMenu;
@@ -37,7 +42,7 @@ namespace MenuKortV1.ViewModel
             }
             else
             {
-                mi.Quantity = 1;
+                mi.Quantity = 1; 
                 OrderLines.Add(mi);
             }
            
