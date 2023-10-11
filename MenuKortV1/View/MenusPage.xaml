@@ -5,8 +5,13 @@
              xmlns:vm="clr-namespace:MenuKortV1.ViewModel"
              x:DataType="vm:MenusViewModel"
              x:Class="MenuKortV1.View.MenusPage"
-             Title="MenusPage">
+             Title="Menuliste"
+             >
 
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+    
     <ScrollView>
         <VerticalStackLayout VerticalOptions="Start">
 
