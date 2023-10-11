@@ -10,6 +10,10 @@
     xmlns:vm="clr-namespace:MenuKortV1.ViewModel"
     Shell.FlyoutBehavior="Disabled">
 
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False"/>
+    </Shell.BackButtonBehavior>
+    
     <ShellContent
         Title="Loading Screen"
         ContentTemplate="{DataTemplate views:LoadingPage}"
