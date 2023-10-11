@@ -38,10 +38,15 @@ namespace MenuKortV1.ViewModel
         [ObservableProperty]
         bool showOrderCreationMenu = true;
 
-        // Function to open new order
+        //
+        [ObservableProperty]
+        bool showItemList = false;
+
+        // Function to create/open new order
         [RelayCommand]
         async Task OpenNewOrder()
         {
+            // Hide soft keyboard
             SoftKeyboardShowerHider();
 
             // Check if the order name field is not empty
@@ -56,35 +61,38 @@ namespace MenuKortV1.ViewModel
                     OrderLines = new List<OrderLine>() { }
                 };
 
+                // Hide the order creation menu - show the order management menu
                 ShowOrderLinesManager = true;
                 ShowOrderCreationMenu = false;
 
+                // Try to create order, get bool
                 var orderPosterResponse = await APIAccess.OrderPoster(MyOrder);
-
                 if (!orderPosterResponse)
                 {
-                    CustomCommands.AToastToYou("ERROR: Ordre kan ikke opretes.");
+                    // If the order couldn't be created
+                    await Shell.Current.DisplayAlert("ERROR", "Ordre kan ikke opretes.", "OK");
                 }
                 else
                 {
+                    // Get the ID of the freshly created order
                     var idYoinker = await APIAccess.GetOrderId(MyOrder);
+
+                    // If the ID is found, continue
                     if (idYoinker != 0)
                     {
                         MyOrder.Id = idYoinker;
                     }
                     else
                     {
-                        CustomCommands.AToastToYou("ERROR: Ordre ID ikke findes");
+                        // If not, show error message
+                        await Shell.Current.DisplayAlert("ERROR", "Ordre ID ikke findes.", "OK");
                     }
                 }
             }
             else
             {
-                // If the order name field is empty, show this popup
-                //CustomCommands.AToastToYou("Du mangler at indtaste ordre navn.");
-
+                // If the order name field is empty, show this alert
                 await Shell.Current.DisplayAlert("Besked", "Du mangler at indtaste ordre navn.", "OK");
-                
             }
         }
 
@@ -93,6 +101,8 @@ namespace MenuKortV1.ViewModel
         async Task OpenMenuList()
         {
             SoftKeyboardShowerHider();
+            ShowItemList = true;
+
             await Shell.Current.GoToAsync($"{nameof(MenusPage)}?", new Dictionary<string, object> { { "MyOrder", MyOrder }, { "OrderLines", OrderLines } });
         }
 
@@ -101,8 +111,8 @@ namespace MenuKortV1.ViewModel
         async void ResetOrder()
         {
             var response = await APIAccess.OrderDeleter(MyOrder);
-            if(response)
-            {
+
+            if(response) {
                 OrderLines.Clear();
                 MyOrder = null;
                 OrderName = string.Empty;
@@ -111,10 +121,11 @@ namespace MenuKortV1.ViewModel
             }
         }
 
-        // Post the order to API
+        // Post the order to API + Save to Preferences
         [RelayCommand]
         async Task SendOrdre()
         {
+            // Go though the order lines and post them
             foreach (MenuItem mi in OrderLines)
             {
                 OrderLine ol = new OrderLine
@@ -129,9 +140,10 @@ namespace MenuKortV1.ViewModel
                 await APIAccess.OrderLinePoster(ol);
             }
 
-            // Save persistent orders
+            // Get preferences string for order data
             string checkPersistentOrderData = Preferences.Get(nameof(App.PersistentOrder), "");
 
+            // If string is null - there's no saved data, so create it.
             if (string.IsNullOrWhiteSpace(checkPersistentOrderData))
             {
                 PersistentOrder po = new PersistentOrder { PersistentOrders = new List<Order> { MyOrder } };
@@ -140,6 +152,7 @@ namespace MenuKortV1.ViewModel
             }
             else
             {
+                // If there is already data, update it
                 PersistentOrder currentPO = JsonConvert.DeserializeObject<PersistentOrder>(checkPersistentOrderData);
                 currentPO.PersistentOrders.Add(MyOrder);
                 string persistentOrderstStr = JsonConvert.SerializeObject(currentPO);
@@ -169,6 +182,10 @@ namespace MenuKortV1.ViewModel
             {
                 // If the quantity reaches 0, automatically remove the item from the list
                 OrderLines.Remove(mi);
+                if(OrderLines.Count == 0)
+                {
+                    ShowItemList = false;
+                }
             }
             else if(mi.Quantity > 0 && mi.Quantity != 1)
             {
