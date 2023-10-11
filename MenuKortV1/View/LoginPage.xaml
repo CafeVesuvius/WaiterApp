@@ -5,30 +5,88 @@
              xmlns:models="clr-namespace:MenuKortV1.Model"
              xmlns:vm="clr-namespace:MenuKortV1.ViewModel"
              x:DataType="vm:LoginViewModel"
-             Title="LoginPage">
+             Title="LoginPage"
+             Shell.NavBarIsVisible="False"
+             >
 
     <ScrollView>
-        <VerticalStackLayout VerticalOptions="Start">
+        <VerticalStackLayout VerticalOptions="Center">
+            <Grid
+                Margin="10"
+                >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
 
-            <Label
-                Text="Login"
-                />
+                <Ellipse
+                    Fill="#c91713"
+                    WidthRequest="150"
+                    HeightRequest="150"
+                    >
+                    <Ellipse.Shadow>
+                        <Shadow 
+                            Brush="Black"
+                            Offset="10,10"
+                            Opacity="0.3"
+                            Radius="40"
+                            />
+                    </Ellipse.Shadow>
+                </Ellipse>
 
-            <Entry
-                Placeholder="Brugernavn"
-                Text="{Binding UserName}"
-                />
+                <Label
+                    Text="Café Vesuvius"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    TextColor="White"
+                    FontSize="19"
+                    />
 
-            <Entry
-                Placeholder="Afgangskode"
-                Text="{Binding Password}"
-                IsPassword="True"
-                />
+                <BoxView
+                    Grid.Row="1"
+                    HeightRequest="30"
+                    Color="Transparent"
+                    />
 
-            <Button
-                Text="Login"
-                Command="{Binding LoginCommand}"
-                />
+                <Label
+                    Grid.Row="2"
+                    Text="Tjener App Login"
+                    FontSize="20"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    />
+
+                <Entry
+                    Grid.Row="3"
+                    Placeholder="Brugernavn"
+                    Text="{Binding UserName}"
+                    FontSize="20"
+                    />
+
+                <Entry
+                    Grid.Row="4"
+                    Placeholder="Afgangskode"
+                    Text="{Binding Password}"
+                    IsPassword="True"
+                    FontSize="20"
+                    />
+
+                <Button
+                    Grid.Row="5"
+                    WidthRequest="100"
+                    Text="Login"
+                    FontSize="20"
+                    CornerRadius="4"
+                    Command="{Binding LoginCommand}"
+                    />
+            </Grid>
         </VerticalStackLayout>
     </ScrollView>
 
