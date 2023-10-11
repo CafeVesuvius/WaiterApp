@@ -13,10 +13,9 @@ namespace MenuKortV1.ViewModel
 {
     public partial class LoginViewModel : ObservableObject
     {
-        //readonly ILoginService _loginService;
         public LoginViewModel()
         {
-            //_loginService = loginService;
+
         }
 
         [ObservableProperty]
@@ -62,10 +61,25 @@ namespace MenuKortV1.ViewModel
                     App.Token = response.Token;
                     await Shell.Current.GoToAsync("//MainPage");
                 }
+                else
+                {
+                    await Shell.Current.DisplayAlert("Felj", "Ugyldig login oplysninger.", "OK");
+                }
             }
             else
             {
-                await CustomCommands.AToastToYou("NOPE");
+                if (string.IsNullOrWhiteSpace(UserName))
+                {
+                    await Shell.Current.DisplayAlert("Fejl", "Du mangler at indtaste brugernavn.", "OK");
+                }
+                else if (string.IsNullOrWhiteSpace(Password))
+                {
+                    await Shell.Current.DisplayAlert("Fejl", "Du mangler at indtaste afgangskode.", "OK");
+                }
+                else
+                {
+                    await Shell.Current.DisplayAlert("ERROR", "Fejl ved login.", "OK");
+                }
             }
         }
     }
