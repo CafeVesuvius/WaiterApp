@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Text.Json;
 
 namespace MenuKortV1.Data
 {
@@ -12,10 +11,7 @@ namespace MenuKortV1.Data
         static readonly string ApiBaseUrl = "http://10.130.54.74:2000";
 
         // Define a http client
-        static HttpClient Client = new HttpClient();
-
-        // Define serializer
-        static JsonSerializerOptions serializerOptions;
+        static readonly HttpClient Client = new HttpClient();
 
         // Set up the http connection to the API
         static APIAccess()
@@ -25,17 +21,17 @@ namespace MenuKortV1.Data
             Client.BaseAddress = new Uri(ApiBaseUrl);
         }
 
-        // Get request for "api/menu" endpoint
-        public static async Task<Menu> GetMenu()
+        // Get request for "api/menu/active" endpoint
+        public static async Task<List<Menu>> GetMenu()
         {
             try
             {
                 HttpResponseMessage APIResponse = new HttpResponseMessage();
-                APIResponse = await Client.GetAsync($"{ApiBaseUrl}/api/menu");
+                APIResponse = await Client.GetAsync($"{ApiBaseUrl}/api/menu/active");
                 APIResponse.EnsureSuccessStatusCode();
                 string responseBody = await APIResponse.Content.ReadAsStringAsync();
-                Menu menus = JsonConvert.DeserializeObject<Menu>(responseBody);
-                return menus;
+                List<Menu> menus = JsonConvert.DeserializeObject<List<Menu>>(responseBody);
+                return menus.ToList();
             }
             catch
             {
@@ -43,7 +39,7 @@ namespace MenuKortV1.Data
             }
         }
 
-        // Get request for the current order via id
+        // Get request for "api/order/incomplete" endpoint
         public static async Task<int> GetOrderId(Order o)
         {
             HttpResponseMessage APIResponse = new HttpResponseMessage();
@@ -66,7 +62,7 @@ namespace MenuKortV1.Data
             return idCatcher;
         }
 
-        // Post request for "api/order"
+        // Post request for "api/order" endpoint
         public static async Task<bool> OrderPoster(Order o)
         {
             try
@@ -84,7 +80,7 @@ namespace MenuKortV1.Data
             }
         }
 
-        // Delete request for "api/order/{id}"
+        // Delete request for "api/order/{id}" endpoint
         public static async Task<bool> OrderDeleter(Order o)
         {
             try
@@ -100,7 +96,7 @@ namespace MenuKortV1.Data
             }
         }
 
-        // Post request for "api/order/orderLine"
+        // Post request for "api/order/orderLine" endpoint
         public static async Task<string> OrderLinePoster(OrderLine ol) 
         {
             try
