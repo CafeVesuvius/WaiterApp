@@ -39,7 +39,7 @@ namespace MenuKortV1.ViewModel
         [ObservableProperty]
         bool showOrderCreationMenu = true;
 
-        // Dybamic pool to show/hide menu item list and "send order" button only if there are order lines
+        // Dynamic pool to show/hide menu item list and "send order" button only if there are order lines
         [ObservableProperty]
         bool showItemList = false;
 
