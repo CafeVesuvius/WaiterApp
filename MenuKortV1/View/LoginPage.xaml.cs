@@ -1,12 +1,13 @@
 using MenuKortV1.ViewModel;
 
-namespace MenuKortV1.View;
-
-public partial class LoginPage : ContentPage
+namespace MenuKortV1.View
 {
-	public LoginPage(LoginViewModel vm)
+	public partial class LoginPage : ContentPage
 	{
-		InitializeComponent();
-		BindingContext = vm;
+		public LoginPage(LoginViewModel vm)
+		{
+			InitializeComponent();
+			BindingContext = vm;
+		}
 	}
 }

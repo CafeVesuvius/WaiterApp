@@ -8,9 +8,12 @@
              Title="LoadingPage">
     <ScrollView>
         <VerticalStackLayout>
+
+            <!-- Loading symbol thingy -->
             <StackLayout>
                 <ActivityIndicator IsRunning="True" MaximumHeightRequest="80" MaximumWidthRequest="80" HorizontalOptions="Center"/>
             </StackLayout>
+            
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>

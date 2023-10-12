@@ -24,7 +24,7 @@ namespace MenuKortV1
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<LoadingPage>();
 
-            // Register dependency injection for models
+            // Register dependency injection for viewmodels
             builder.Services.AddSingleton<MainViewModel>();
             builder.Services.AddTransient<MenuItemViewModel>();
             builder.Services.AddTransient<MenusViewModel>();

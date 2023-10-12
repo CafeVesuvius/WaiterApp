@@ -6,10 +6,8 @@
              x:DataType="vm:MenuItemViewModel"
              x:Class="MenuKortV1.View.MenuItemPage"
              Title="{Binding SelectedMenu.Name}">
-
     <ScrollView>
         <VerticalStackLayout VerticalOptions="Start">
-
             <CollectionView ItemsSource="{Binding SelectedMenu.Items}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="{x:Type models:MenuItem}">
@@ -21,9 +19,7 @@
                                 <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Image
-                                Source="{Binding ImagePath}"
-                                />
+                            <Image Source="{Binding ImagePath}"/>
 
                             <Button
                                 Text="{Binding Name}"
@@ -48,8 +44,6 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
         </VerticalStackLayout>
     </ScrollView>
-    
 </ContentPage>

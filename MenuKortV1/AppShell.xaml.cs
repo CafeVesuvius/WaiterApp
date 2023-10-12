@@ -1,5 +1,4 @@
 ﻿using MenuKortV1.View;
-using MenuKortV1.ViewModel;
 
 namespace MenuKortV1
 {

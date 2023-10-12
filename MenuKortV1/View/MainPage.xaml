@@ -6,12 +6,10 @@
              x:DataType="vm:MainViewModel"
              x:Class="MenuKortV1.MainPage"
              >
-
     <ScrollView>
         <VerticalStackLayout VerticalOptions="Start">
 
             <!-- BEFORE CREATING ORDER -->
-            
             <Entry
                 Text="{Binding OrderName}"
                 Placeholder="Navn eller bord nr."
@@ -27,7 +25,6 @@
                 IsEnabled="{Binding ShowOrderCreationMenu}"
                 IsVisible="{Binding ShowOrderCreationMenu}"
                 />
-
             <!-- ======================= -->
 
             <!-- AFTER CREATING ORDER -->
@@ -116,6 +113,7 @@
                         Padding="10,3,0,3"
                         />
                 </Grid>
+                <!-- ======================= -->
 
                 <!-- Button to add items to "Varer:" list -->
                 <Button
@@ -235,6 +233,7 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
                 </Grid>
+                <!-- ======================= -->
 
                 <!-- Buttons to cancel or send and the order -->
                 <Grid 
@@ -243,7 +242,7 @@
                     IsVisible="{Binding ShowOrderLinesManager}"
                     IsEnabled="{Binding ShowOrderLinesManager}"
                     >
-                    
+
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
@@ -270,11 +269,8 @@
                         />
                 </Grid>
                 <!-- ======================================= -->
-                
             </Grid>
-
-
+            <!-- ======================= -->
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>

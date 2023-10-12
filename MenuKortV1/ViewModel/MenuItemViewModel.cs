@@ -6,37 +6,28 @@ using MenuItem = MenuKortV1.Model.MenuItem;
 
 namespace MenuKortV1.ViewModel
 {
-    // Get parameters, which are sent via the "OpenMenu" command from 'MainViewModel'
+    // Get parameters, which are sent via the "OpenMenu" command from 'MenusViewModel'
     [QueryProperty("SelectedMenu", "Menu")]
-    [QueryProperty("MyOrder", "MyOrder")]
     [QueryProperty("OrderLines", "OrderLines")]
 
     public partial class MenuItemViewModel : ObservableObject
     {
-
-        public MenuItemViewModel() 
-        {
-        }
-
         // Define the query property, which stores passed parameters
         [ObservableProperty]
         Menu selectedMenu;
-
-        // Define "Order" object
-        [ObservableProperty]
-        Order myOrder;
 
         // Define observable collection for the current order's order lines
         [ObservableProperty]
         ObservableCollection<MenuItem> orderLines = new ObservableCollection<MenuItem>();
 
-        //Add menu items to an order
+        // Add menu items to an order
         [RelayCommand]
         async Task AddItem(MenuItem mi)
         {
-            // Add items to the collection
+            // Add new items/order lines to the order
             if (OrderLines.Contains(mi))
             {
+                // Stack quantity if the item is already in the list
                 var existingItem = OrderLines.Where(x => x.MenuID == mi.MenuID).FirstOrDefault();
                 existingItem.Quantity += 1;
             }

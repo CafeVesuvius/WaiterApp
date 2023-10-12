@@ -10,6 +10,7 @@ using ObservableObject = CommunityToolkit.Mvvm.ComponentModel.ObservableObject;
 
 namespace MenuKortV1.ViewModel
 {
+    // Get new order lines from "MenuItemViewModel"
     [QueryProperty("OrderLines", "OrderLines")]
 
     public partial class MainViewModel : ObservableObject
@@ -38,7 +39,7 @@ namespace MenuKortV1.ViewModel
         [ObservableProperty]
         bool showOrderCreationMenu = true;
 
-        //
+        // Dybamic pool to show/hide menu item list and "send order" button only if there are order lines
         [ObservableProperty]
         bool showItemList = false;
 
@@ -108,7 +109,7 @@ namespace MenuKortV1.ViewModel
 
         // Clear the whole order and delete it from the API
         [RelayCommand]
-        async void ResetOrder()
+        async Task ResetOrder()
         {
             var response = await APIAccess.OrderDeleter(MyOrder);
 
@@ -169,7 +170,7 @@ namespace MenuKortV1.ViewModel
 
         // Increase quantity of a menu item
         [RelayCommand]
-        void IncreaseMenuItemQuantity(MenuItem mi)
+        static void IncreaseMenuItemQuantity(MenuItem mi)
         {
             mi.Quantity += 1;
         }

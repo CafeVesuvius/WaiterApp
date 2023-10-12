@@ -8,12 +8,9 @@
              Title="LoginPage"
              Shell.NavBarIsVisible="False"
              >
-
     <ScrollView>
         <VerticalStackLayout VerticalOptions="Center">
-            <Grid
-                Margin="10"
-                >
+            <Grid Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -89,5 +86,4 @@
             </Grid>
         </VerticalStackLayout>
     </ScrollView>
-
 </ContentPage>
