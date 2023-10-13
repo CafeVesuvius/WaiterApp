@@ -7,18 +7,36 @@
     xmlns:local="clr-namespace:MenuKortV1"
     xmlns:page="clr-namespace:MenuKortV1.View"
     xmlns:views="clr-namespace:MenuKortV1.View"
+    xmlns:vm="clr-namespace:MenuKortV1.ViewModel"
     Shell.FlyoutBehavior="Disabled">
 
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsEnabled="False" IsVisible="False"/>
+    </Shell.BackButtonBehavior>
+    
     <ShellContent
+        Title="Loading Screen"
+        ContentTemplate="{DataTemplate views:LoadingPage}"
+        Route="LoadingPage"
+        />
+
+    <ShellContent
+        Title="Login"
+        ContentTemplate="{DataTemplate views:LoginPage}"
+        Route="LoginPage"
+        />
+
+    <TabBar>
+        <ShellContent
             Title="Ordre"
             ContentTemplate="{DataTemplate local:MainPage}"
             Route="MainPage" 
             />
-
-    <!--<TabBar>
+        
         <ShellContent
-            Title="Menuliste"
-            ContentTemplate="{x:DataTemplate views:MenusPage}"
-            Route="MenusPage"/>
-    </TabBar>-->
+            Title="Aktive Ordre"
+            ContentTemplate="{x:DataTemplate views:ActiveOrders}"
+            Route="ActiveOrders"
+            />
+    </TabBar>
 </Shell>

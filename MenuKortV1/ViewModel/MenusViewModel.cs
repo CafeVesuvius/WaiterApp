@@ -9,7 +9,6 @@ using MenuItem = MenuKortV1.Model.MenuItem;
 namespace MenuKortV1.ViewModel
 {
     // Pass order parameters from "MainViewModel"
-    [QueryProperty("MyOrder", "MyOrder")]
     [QueryProperty("OrderLines", "OrderLines")]
 
     public partial class MenusViewModel : ObservableObject
@@ -19,6 +18,7 @@ namespace MenuKortV1.ViewModel
 
         public MenusViewModel() 
         {
+            // Load all menu data on routing
             Refresh();
         }
 
@@ -38,42 +38,43 @@ namespace MenuKortV1.ViewModel
         [RelayCommand]
         async Task OpenMenu(Menu m)
         {
-            await Shell.Current.GoToAsync($"{nameof(MenuItemPage)}?", new Dictionary<string, object> { { "Menu", m }, { "MyOrder", MyOrder }, { "OrderLines", OrderLines } });
+            await Shell.Current.GoToAsync($"{nameof(MenuItemPage)}?", new Dictionary<string, object> { { "Menu", m }, { "OrderLines", OrderLines } });
         }
 
         // Command, which gets/refreshes menu data from the API
         [RelayCommand]
         async Task Refresh()
         {
-            // Get data
+            // Get menu data
             var menus = await APIAccess.GetMenu();
 
-            // Check if data isn't null
-            if (menus != null)
+            // Check if menu data isn't null
+            if (menus.Any())
             {
                 // Clear the menu list before refreshing it with new data
                 Menus.Clear();
 
-                if (menus.Active)
+                foreach (var menu in menus.ToList())
                 {
                     // Remove inactive menu items from the menu
-                    foreach (var menuItem in menus.Items)
+                    foreach (var menuItem in menu.Items.ToList())
                     {
                         if (!menuItem.Active)
                         {
-                            menus.Items.Remove(menuItem);
+                            menu.Items.Remove(menuItem);
                         }
                     }
 
-                    // Add the menus
-                    Menus.Add(menus);
+                    //Add the menu to the menu list
+                    Menus.Add(menu);
                 }
+
                 // Only show "Vælg er menu fra listen:" if there is at least one menu in the list
                 ShowTitle = true;
             }
             else
             {
-                CustomCommands.AToastToYou("Der findes ikke noget menuer");
+                await Shell.Current.DisplayAlert("Fejl", "Der findes ikke noget menuer.", "OK");
             }
         }
     }

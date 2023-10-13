@@ -5,7 +5,12 @@
              xmlns:vm="clr-namespace:MenuKortV1.ViewModel"
              x:DataType="vm:MenusViewModel"
              x:Class="MenuKortV1.View.MenusPage"
-             Title="MenusPage">
+             Title="Menuliste"
+             >
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
 
     <ScrollView>
         <VerticalStackLayout VerticalOptions="Start">
@@ -14,7 +19,8 @@
                 Text="Genfrisk"
                 FontSize="20"
                 BackgroundColor="slategrey"
-                Command="{Binding RefreshCommand}"/>
+                Command="{Binding RefreshCommand}"
+                />
 
             <Label
                 Padding="10"
@@ -44,8 +50,6 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
         </VerticalStackLayout>
     </ScrollView>
-    
 </ContentPage>

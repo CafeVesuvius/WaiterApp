@@ -2,7 +2,6 @@
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
-using System.Text.Json;
 
 namespace MenuKortV1.Data
 {
@@ -11,52 +10,36 @@ namespace MenuKortV1.Data
         // Define a variable to store the API adress
         static readonly string ApiBaseUrl = "http://10.130.54.74:2000";
 
-        //key string
-        static readonly string Key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiJDVl9BZG1pbiIsIm5iZiI6MTY5NTk2NzIwNSwiZXhwIjoxNjk2MDUzNjA1LCJpYXQiOjE2OTU5NjcyMDV9.LQr2wGkOpxhwI3CUleunPPq-NlOhBEXdvgh2YsSxvR0";
-
-        // Define API token
-        private static readonly string AuthorizationToken = Key;
-
         // Define a http client
-        static HttpClient Client = new HttpClient();
-
-        // Define serializer
-        static JsonSerializerOptions serializerOptions;
+        static readonly HttpClient Client = new HttpClient();
 
         // Set up the http connection to the API
         static APIAccess()
         {
-            Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", AuthorizationToken);
+            Client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", App.Token);
             Client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //Client.DefaultRequestHeaders.Add("Accept", "application/json");
             Client.BaseAddress = new Uri(ApiBaseUrl);
-
-            serializerOptions = new JsonSerializerOptions
-            {
-                PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-                WriteIndented = true
-            };
         }
 
-        // Get menu list
-        public static async Task<Menu> GetMenu()
+        // Get request for "api/menu/active" endpoint
+        public static async Task<List<Menu>> GetMenu()
         {
             try
             {
                 HttpResponseMessage APIResponse = new HttpResponseMessage();
-                APIResponse = await Client.GetAsync($"{ApiBaseUrl}/api/menu");
+                APIResponse = await Client.GetAsync($"{ApiBaseUrl}/api/menu/active");
                 APIResponse.EnsureSuccessStatusCode();
                 string responseBody = await APIResponse.Content.ReadAsStringAsync();
-                Menu menus = JsonConvert.DeserializeObject<Menu>(responseBody);
-                return menus;
+                List<Menu> menus = JsonConvert.DeserializeObject<List<Menu>>(responseBody);
+                return menus.ToList();
             }
-            catch (Exception ex)
+            catch
             {
                 return null;
             }
         }
 
-        // Get the current order id
+        // Get request for "api/order/incomplete" endpoint
         public static async Task<int> GetOrderId(Order o)
         {
             HttpResponseMessage APIResponse = new HttpResponseMessage();
@@ -79,12 +62,12 @@ namespace MenuKortV1.Data
             return idCatcher;
         }
 
-        // Post order
+        // Post request for "api/order" endpoint
         public static async Task<bool> OrderPoster(Order o)
         {
             try
             {
-                string json = System.Text.Json.JsonSerializer.Serialize<Order>(o, serializerOptions);
+                string json = System.Text.Json.JsonSerializer.Serialize<Order>(o);
                 StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage APIResponse = new HttpResponseMessage();
                 APIResponse = await Client.PostAsync($"{ApiBaseUrl}/api/order", content);
@@ -97,13 +80,11 @@ namespace MenuKortV1.Data
             }
         }
 
-        // Delete empty order
+        // Delete request for "api/order/{id}" endpoint
         public static async Task<bool> OrderDeleter(Order o)
         {
             try
             {
-                //string json = System.Text.Json.JsonSerializer.Serialize<Order>(o, serializerOptions);
-                //StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
                 HttpResponseMessage APIResponse = new HttpResponseMessage();
                 APIResponse = await Client.DeleteAsync($"{ApiBaseUrl}/api/order/{o.Id}");
                 APIResponse.EnsureSuccessStatusCode();
@@ -115,7 +96,7 @@ namespace MenuKortV1.Data
             }
         }
 
-        // Post order lines
+        // Post request for "api/order/orderLine" endpoint
         public static async Task<string> OrderLinePoster(OrderLine ol) 
         {
             try

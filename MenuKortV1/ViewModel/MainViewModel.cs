@@ -3,12 +3,14 @@ using CommunityToolkit.Mvvm.Input;
 using MenuKortV1.Data;
 using MenuKortV1.Model;
 using MenuKortV1.View;
+using Newtonsoft.Json;
 using System.Collections.ObjectModel;
 using MenuItem = MenuKortV1.Model.MenuItem;
 using ObservableObject = CommunityToolkit.Mvvm.ComponentModel.ObservableObject;
 
 namespace MenuKortV1.ViewModel
 {
+    // Get new order lines from "MenuItemViewModel"
     [QueryProperty("OrderLines", "OrderLines")]
 
     public partial class MainViewModel : ObservableObject
@@ -29,18 +31,23 @@ namespace MenuKortV1.ViewModel
         [ObservableProperty]
         ObservableCollection<MenuItem> orderLines = new ObservableCollection<MenuItem>();
 
-        //
+        // Dynamic page content for order details. Shown when an order is created.
         [ObservableProperty]
         bool showOrderLinesManager = false;
 
-        //
+        // Dynamic page content to show order creation menu. Hide after creating an order.
         [ObservableProperty]
         bool showOrderCreationMenu = true;
 
-        // Function to open new order
+        // Dynamic pool to show/hide menu item list and "send order" button only if there are order lines
+        [ObservableProperty]
+        bool showItemList = false;
+
+        // Function to create/open new order
         [RelayCommand]
         async Task OpenNewOrder()
         {
+            // Hide soft keyboard
             SoftKeyboardShowerHider();
 
             // Check if the order name field is not empty
@@ -55,49 +62,58 @@ namespace MenuKortV1.ViewModel
                     OrderLines = new List<OrderLine>() { }
                 };
 
+                // Hide the order creation menu - show the order management menu
                 ShowOrderLinesManager = true;
                 ShowOrderCreationMenu = false;
 
+                // Try to create order, get bool
                 var orderPosterResponse = await APIAccess.OrderPoster(MyOrder);
-
                 if (!orderPosterResponse)
                 {
-                    CustomCommands.AToastToYou("ERROR: Ordre kan ikke opretes.");
+                    // If the order couldn't be created
+                    await Shell.Current.DisplayAlert("ERROR", "Ordre kan ikke opretes.", "OK");
                 }
                 else
                 {
+                    // Get the ID of the freshly created order
                     var idYoinker = await APIAccess.GetOrderId(MyOrder);
+
+                    // If the ID is found, continue
                     if (idYoinker != 0)
                     {
                         MyOrder.Id = idYoinker;
                     }
                     else
                     {
-                        CustomCommands.AToastToYou("ERROR: Ordre ID ikke findes");
+                        // If not, show error message
+                        await Shell.Current.DisplayAlert("ERROR", "Ordre ID ikke findes.", "OK");
                     }
                 }
             }
             else
             {
-                // If the order name field is empty, show this popup
-                CustomCommands.AToastToYou("Du mangler at indtaste ordre navn.");
+                // If the order name field is empty, show this alert
+                await Shell.Current.DisplayAlert("Besked", "Du mangler at indtaste ordre navn.", "OK");
             }
         }
 
+        // Navigate to menu list page
         [RelayCommand]
         async Task OpenMenuList()
         {
             SoftKeyboardShowerHider();
+            ShowItemList = true;
+
             await Shell.Current.GoToAsync($"{nameof(MenusPage)}?", new Dictionary<string, object> { { "MyOrder", MyOrder }, { "OrderLines", OrderLines } });
         }
 
-        // Define a command, which clears an order
+        // Clear the whole order and delete it from the API
         [RelayCommand]
-        async void ResetOrder()
+        async Task ResetOrder()
         {
             var response = await APIAccess.OrderDeleter(MyOrder);
-            if(response)
-            {
+
+            if(response) {
                 OrderLines.Clear();
                 MyOrder = null;
                 OrderName = string.Empty;
@@ -106,17 +122,11 @@ namespace MenuKortV1.ViewModel
             }
         }
 
-        // Define a command, which removes a specific item from an order
-        [RelayCommand]
-        void RemoveThisItemFromOrder(MenuItem mi)
-        {
-            OrderLines.Remove(mi);
-        }
-
-        // Send the order to API/kitchen
+        // Post the order to API + Save to Preferences
         [RelayCommand]
         async Task SendOrdre()
         {
+            // Go though the order lines and post them
             foreach (MenuItem mi in OrderLines)
             {
                 OrderLine ol = new OrderLine
@@ -131,6 +141,26 @@ namespace MenuKortV1.ViewModel
                 await APIAccess.OrderLinePoster(ol);
             }
 
+            // Get preferences string for order data
+            string checkPersistentOrderData = Preferences.Get(nameof(App.PersistentOrder), "");
+
+            // If string is null - there's no saved data, so create it.
+            if (string.IsNullOrWhiteSpace(checkPersistentOrderData))
+            {
+                PersistentOrder po = new PersistentOrder { PersistentOrders = new List<Order> { MyOrder } };
+                string persistentOrderstStr = JsonConvert.SerializeObject(po);
+                Preferences.Set(nameof(App.PersistentOrder), persistentOrderstStr);
+            }
+            else
+            {
+                // If there is already data, update it
+                PersistentOrder currentPO = JsonConvert.DeserializeObject<PersistentOrder>(checkPersistentOrderData);
+                currentPO.PersistentOrders.Add(MyOrder);
+                string persistentOrderstStr = JsonConvert.SerializeObject(currentPO);
+                Preferences.Set(nameof(App.PersistentOrder), persistentOrderstStr);
+            }
+
+            // Clear order and order lines
             OrderLines.Clear();
             MyOrder = null;
             OrderName = string.Empty;
@@ -138,18 +168,25 @@ namespace MenuKortV1.ViewModel
             ShowOrderCreationMenu = true;
         }
 
+        // Increase quantity of a menu item
         [RelayCommand]
-        void IncreaseMenuItemQuantity(MenuItem mi)
+        static void IncreaseMenuItemQuantity(MenuItem mi)
         {
             mi.Quantity += 1;
         }
 
+        // Decrease quantity of a menu item
         [RelayCommand]
         void DecreaseMenuItemQuantity(MenuItem mi)
         {
             if(mi.Quantity == 1)
             {
+                // If the quantity reaches 0, automatically remove the item from the list
                 OrderLines.Remove(mi);
+                if(OrderLines.Count == 0)
+                {
+                    ShowItemList = false;
+                }
             }
             else if(mi.Quantity > 0 && mi.Quantity != 1)
             {
@@ -157,6 +194,7 @@ namespace MenuKortV1.ViewModel
             }
         }
 
+        // Trick to hide soft keyboard
         void SoftKeyboardShowerHider()
         {
             // Soft Keyboard Show/Hide Trick
