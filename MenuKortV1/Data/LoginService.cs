@@ -10,9 +10,13 @@ namespace MenuKortV1.Data
         {
             using (var client = new HttpClient())
             {
+                // Get login credentials from login request
                 string loginRequestJson = JsonConvert.SerializeObject(loginRequest);
-                var response = client.PostAsync("http://10.130.54.74:2000/api/Authentication", new StringContent(loginRequestJson, Encoding.UTF8, "application/json"));
 
+                // Attempt to get new token at the "Authentication" API endpoint
+                var response = client.PostAsync("http://10.130.54.46:2000/api/Authentication", new StringContent(loginRequestJson, Encoding.UTF8, "application/json"));
+
+                // If login is successful, save token in persistent data
                 if (response.Result.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     var json = await response.Result.Content.ReadAsStringAsync();
