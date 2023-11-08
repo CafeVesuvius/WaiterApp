@@ -26,6 +26,7 @@ namespace MenuKortV1.Model
         [JsonProperty("menuId")]
         public int MenuID { get; set; }
 
+        // These two variables are only used within the app
         [ObservableProperty]
         public byte quantity;
 

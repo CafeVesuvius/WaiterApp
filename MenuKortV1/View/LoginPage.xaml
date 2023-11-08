@@ -23,6 +23,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
+                <!-- RED CIRCLE LOGO -->
                 <Ellipse
                     Fill="#c91713"
                     WidthRequest="150"
@@ -45,6 +46,7 @@
                     TextColor="White"
                     FontSize="19"
                     />
+                <!-- ======================= -->
 
                 <BoxView
                     Grid.Row="1"
@@ -52,6 +54,7 @@
                     Color="Transparent"
                     />
 
+                <!-- LOGIN FORM -->
                 <Label
                     Grid.Row="2"
                     Text="Tjener App Login"
@@ -83,6 +86,7 @@
                     CornerRadius="4"
                     Command="{Binding LoginCommand}"
                     />
+                <!-- ======================= -->
             </Grid>
         </VerticalStackLayout>
     </ScrollView>

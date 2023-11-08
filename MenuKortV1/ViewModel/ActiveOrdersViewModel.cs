@@ -9,6 +9,7 @@ namespace MenuKortV1.ViewModel
     {
         public ActiveOrdersViewModel() 
         {
+            // Auto refresh orders on entering the page
             Refresh();
         }
 
@@ -24,7 +25,7 @@ namespace MenuKortV1.ViewModel
         [ObservableProperty]
         List<Order> currentOrders = new List<Order>();
 
-        // Command to refresh the order list
+        // Command to refresh the orders list
         [RelayCommand]
         void Refresh()
         {
@@ -40,6 +41,7 @@ namespace MenuKortV1.ViewModel
             RowCounter = CurrentOrders.Count;
         }
 
+        // Command to delete an order from persistent data
         [RelayCommand]
         void Remove(Order o)
         {
