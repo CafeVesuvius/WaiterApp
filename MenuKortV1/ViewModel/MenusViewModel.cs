@@ -1,9 +1,11 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using AndroidX.Lifecycle;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MenuKortV1.Data;
 using MenuKortV1.Model;
 using MenuKortV1.View;
 using System.Collections.ObjectModel;
+using System.Text.RegularExpressions;
 using MenuItem = MenuKortV1.Model.MenuItem;
 
 namespace MenuKortV1.ViewModel
@@ -63,9 +65,12 @@ namespace MenuKortV1.ViewModel
                         {
                             menu.Items.Remove(menuItem);
                         }
+
+                        // Alter image path string to match local filenames
+                        menuItem.ImagePath = menuItem.ImagePath.ToLower().Replace("_", "").Replace("-", "");
                     }
 
-                    //Add the menu to the menu list
+                    // Add the menu to the menu list
                     Menus.Add(menu);
                 }
 
