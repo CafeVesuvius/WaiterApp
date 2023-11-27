@@ -14,7 +14,7 @@ namespace MenuKortV1.Data
                 string loginRequestJson = JsonConvert.SerializeObject(loginRequest);
 
                 // Attempt to get new token at the "Authentication" API endpoint
-                var response = client.PostAsync("http://10.130.54.46:2000/api/Authentication", new StringContent(loginRequestJson, Encoding.UTF8, "application/json"));
+                var response = client.PostAsync("http://10.130.54.23:2000/api/Authentication", new StringContent(loginRequestJson, Encoding.UTF8, "application/json"));
 
                 // If login is successful, save token in persistent data
                 if (response.Result.StatusCode == System.Net.HttpStatusCode.OK)

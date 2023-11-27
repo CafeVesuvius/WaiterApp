@@ -8,7 +8,7 @@ namespace MenuKortV1.Data
     public static class APIAccess
     {
         // Define a variable to store the API adress
-        static readonly string ApiBaseUrl = "http://10.130.54.46:2000";
+        static readonly string ApiBaseUrl = "http://10.130.54.23:2000";
 
         // Define a http client
         static readonly HttpClient Client = new HttpClient();
